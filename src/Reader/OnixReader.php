@@ -108,6 +108,18 @@ final class OnixReader
         }
     }
 
+    /**
+     * Hydrates one product from ONIX expressed as nested arrays (the ONIX JSON
+     * expression, as shipped by openBD and JPRO). Issues are collected exactly
+     * as for the XML path, so getProductIssues() applies here too.
+     *
+     * @param array<string, mixed> $product
+     */
+    public function readArrayProduct(array $product): Product
+    {
+        return $this->hydrateProduct(ArrayToDom::element($product, 'Product'));
+    }
+
     private function resolveUri(string $source): string
     {
         if (preg_match('#^[a-z0-9.+-]+://#i', $source) === 1) {

@@ -51,6 +51,18 @@ class Parser
         return $this->collect($this->streamString($xml));
     }
 
+    /**
+     * Parses one product from ONIX expressed as nested arrays (the ONIX JSON
+     * expression). Unlike the streaming methods this does not reset the reader,
+     * so getIssues() accumulates across calls.
+     *
+     * @param array<string, mixed> $product
+     */
+    public function parseArrayProduct(array $product): Product
+    {
+        return $this->reader->readArrayProduct($product);
+    }
+
     public function parseFile(string $source): Message
     {
         return $this->collect($this->stream($source));
