@@ -1,120 +1,64 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
+
+namespace MirayS\Onix\Product;
 
 class Territory
 {
+    private ?string $CountriesIncluded = null;
 
-    /**
-     * CountriesIncluded
-     *
-     * @var array
-     */
-    protected $CountriesIncluded = [];
+    private ?string $RegionsIncluded = null;
 
-    /**
-     * CountriesExcluded
-     *
-     * @var array
-     */
-    protected $CountriesExcluded = [];
+    private ?string $RegionsExcluded = null;
 
-    /**
-     * RegionsIncluded
-     *
-     * @var array
-     */
-    protected $RegionsIncluded = [];
+    private ?string $CountriesExcluded = null;
 
-    /**
-     * RegionsExcluded
-     *
-     * @var array
-     */
-    protected $RegionsExcluded = [];
-
-    /**
-     * Set CountriesIncluded
-     *
-     * @param string $CountriesIncluded
-     * @return void
-     */
-    public function setCountriesIncluded(string $CountriesIncluded)
+    public function setCountriesIncluded(string $countriesIncluded): static
     {
-        $this->CountriesIncluded = explode(" ", $CountriesIncluded);
+        $this->CountriesIncluded = $countriesIncluded;
+
+        return $this;
     }
 
-    /**
-     * Set CountriesExcluded
-     *
-     * @param string $CountriesExcluded
-     * @return void
-     */
-    public function setCountriesExcluded(string $CountriesExcluded)
-    {
-        $this->CountriesExcluded = explode(" ", $CountriesExcluded);
-    }
-
-    /**
-     * Set RegionsIncluded
-     *
-     * @param string $RegionsIncluded
-     * @return void
-     */
-    public function setRegionsIncluded(string $RegionsIncluded)
-    {
-        $this->RegionsIncluded = explode(" ", $RegionsIncluded);
-    }
-
-    /**
-     * Set RegionsExcluded
-     *
-     * @param string $RegionsExcluded
-     * @return void
-     */
-    public function setRegionsExcluded(string $RegionsExcluded)
-    {
-        $this->RegionsExcluded = explode(" ", $RegionsExcluded);
-    }
-
-    /**
-     * Get CountriesIncluded
-     *
-     * @return array
-     */
-    public function getCountriesIncluded()
+    public function getCountriesIncluded(): ?string
     {
         return $this->CountriesIncluded;
     }
 
-    /**
-     * Get CountriesExcluded
-     *
-     * @return array
-     */
-    public function getCountriesExcluded()
+    public function setRegionsIncluded(string $regionsIncluded): static
     {
-        return $this->CountriesExcluded;
+        $this->RegionsIncluded = $regionsIncluded;
+
+        return $this;
     }
 
-    /**
-     * RegionsIncluded
-     *
-     * @return array
-     */
-    public function getRegionsIncluded()
+    public function getRegionsIncluded(): ?string
     {
         return $this->RegionsIncluded;
     }
 
-    /**
-     * Get RegionsExcluded
-     *
-     * @return array
-     */
-    public function getRegionsExcluded()
+    public function setRegionsExcluded(string $regionsExcluded): static
+    {
+        $this->RegionsExcluded = $regionsExcluded;
+
+        return $this;
+    }
+
+    public function getRegionsExcluded(): ?string
     {
         return $this->RegionsExcluded;
     }
 
+    public function setCountriesExcluded(string $countriesExcluded): static
+    {
+        $this->CountriesExcluded = $countriesExcluded;
+
+        return $this;
+    }
+
+    public function getCountriesExcluded(): ?string
+    {
+        return $this->CountriesExcluded;
+    }
 }

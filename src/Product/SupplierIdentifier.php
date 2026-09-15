@@ -1,66 +1,52 @@
 <?php
- 
-namespace Ribal\Onix\Product;
 
-use Ribal\Onix\CodeList\CodeList92;
+declare(strict_types=1);
+
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList92;
 
 class SupplierIdentifier
 {
+    private ?CodeList92 $SupplierIDType = null;
 
-    /**
-     * SupplierIDType
-     *
-     * @var CodeList
-     */
-    protected $SupplierIDType;
+    private ?string $IDTypeName = null;
 
-    /**
-     * IDValue
-     *
-     * @var string
-     */
-    protected $IDValue;
+    private ?string $IDValue = null;
 
-    /**
-     * Set SupplierIDType
-     *
-     * @param CodeList92 $SupplierIDType
-     * @return void
-     */
-    public function setSupplierIDType(CodeList92 $SupplierIDType)
+    public function setSupplierIDType(CodeList92 $supplierIDType): static
     {
-        $this->SupplierIDType = $SupplierIDType;
+        $this->SupplierIDType = $supplierIDType;
+
+        return $this;
     }
 
-    /**
-     * Set IDValue
-     *
-     * @param string $IDValue
-     * @return void
-     */
-    public function setIDValue(string $IDValue)
-    {
-        $this->IDValue = $IDValue;
-    }
-
-    /**
-     * Get SupplierIDType
-     *
-     * @return CodeList
-     */
-    public function getSupplierIDType()
+    public function getSupplierIDType(): ?CodeList92
     {
         return $this->SupplierIDType;
     }
 
-    /**
-     * Get IDValue
-     *
-     * @return string
-     */
-    public function getIDValue()
+    public function setIDTypeName(string $iDTypeName): static
+    {
+        $this->IDTypeName = $iDTypeName;
+
+        return $this;
+    }
+
+    public function getIDTypeName(): ?string
+    {
+        return $this->IDTypeName;
+    }
+
+    public function setIDValue(string $iDValue): static
+    {
+        $this->IDValue = $iDValue;
+
+        return $this;
+    }
+
+    public function getIDValue(): ?string
     {
         return $this->IDValue;
     }
-
 }

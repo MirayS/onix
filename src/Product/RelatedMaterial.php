@@ -1,78 +1,56 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
+
+namespace MirayS\Onix\Product;
 
 class RelatedMaterial
 {
+    private array $RelatedWork = [];
 
-    /**
-     * Array of RelatedWork
-     *
-     * @var array|RelatedWork
-     */
-    protected $RelatedWork = [];
+    private array $RelatedProduct = [];
 
-    /**
-     * Array of RelatedProduct
-     *
-     * @var array|RelatedProduct
-     */
-    protected $RelatedProduct = [];
-
-    /**
-     * Add new RelatedWork
-     *
-     * @param RelatedWork $RelatedWork
-     * @return void
-     */
-    public function addRelatedWork(RelatedWork $RelatedWork)
+    public function addRelatedWork(RelatedWork $relatedWork): static
     {
-        $this->RelatedWork[] = $RelatedWork;
+        $this->RelatedWork[] = $relatedWork;
+
+        return $this;
     }
 
-    /**
-     * Set RelatedProduct
-     *
-     * @param RelatedProduct $RelatedProduct
-     * @return void
-     */
-    public function addRelatedProduct(RelatedProduct $RelatedProduct)
-    {
-        $this->RelatedProduct[] = $RelatedProduct;
-    }
-
-    /**
-     * Get RelatedWork
-     *
-     * @return array
-     */
-    public function getRelatedWork()
+    public function getRelatedWork(): array
     {
         return $this->RelatedWork;
     }
 
-    /**
-     * Get RelatedProduct
-     *
-     * @return RelatedProduct
-     */
-    public function getRelatedProduct()
+    public function removeRelatedWork(RelatedWork $relatedWork): static
+    {
+        $this->RelatedWork = array_values(array_filter(
+            $this->RelatedWork,
+            static fn ($item): bool => $item !== $relatedWork,
+        ));
+
+        return $this;
+    }
+
+    public function addRelatedProduct(RelatedProduct $relatedProduct): static
+    {
+        $this->RelatedProduct[] = $relatedProduct;
+
+        return $this;
+    }
+
+    public function getRelatedProduct(): array
     {
         return $this->RelatedProduct;
     }
 
-    /**
-     * Remove RelatedWork
-     *
-     * @param RelatedWork $RelatedWork
-     * @return void
-     */
-    public function removeRelatedWork(RelatedWork $RelatedWork)
+    public function removeRelatedProduct(RelatedProduct $relatedProduct): static
     {
-    }
+        $this->RelatedProduct = array_values(array_filter(
+            $this->RelatedProduct,
+            static fn ($item): bool => $item !== $relatedProduct,
+        ));
 
-    public function removeRelatedProduct(RelatedProduct $RelatedProduct)
-    {
+        return $this;
     }
-
 }

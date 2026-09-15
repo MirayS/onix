@@ -1,82 +1,77 @@
 <?php
 
-namespace Ribal\Onix\CodeList;
+declare(strict_types=1);
 
-use Ribal\Onix\Exception\InvalidCodeListCodeException;
-use Ribal\Onix\Exception\InvalidCodeListLanguageException;
+namespace MirayS\Onix\CodeList;
+
+use MirayS\Onix\Exception\InvalidCodeListLanguageException;
 
 class CodeList
 {
+    protected string $code = '';
 
-    /**
-     * The code to be resolved
-     *
-     * @var string
-     */
-    protected $code = "";
+    protected ?string $value = null;
 
-    /**
-     * The resolved value
-     *
-     * @var string
-     */
-    protected $value = "";
+    private static array $instances = [];
 
-    /**
-     * Resolves a CodeList value by code and language
-     *
-     * @param string $code
-     * @param string $language
-     * @return CodeList
-     */
-    public static function resolve(string $code, string $language = 'en')
+    public static function resolve(string $code, string $language = 'en'): static
     {
+        $cacheKey = static::class . '|' . $language . '|' . $code;
+
+        if (isset(self::$instances[$cacheKey])) {
+            return self::$instances[$cacheKey];
+        }
+
+        $values = static::values($language);
 
         $codeList = new static();
- 
-        if (!isset($codeList::$$language) || !is_array($codeList::$$language)) {
-            throw new InvalidCodeListLanguageException(sprintf('Missing language \'%s\' in %s', $language, static::class));
-        }
-
-        if (!array_key_exists($code, $codeList::$$language)) {
-            throw new InvalidCodeListCodeException(sprintf('Missing code %s for language %s in %s', $code, $language, static::class));
-        }
-
         $codeList->code = $code;
-        $codeList->value = $codeList::$$language[$code];
+        $codeList->value = $values[$code] ?? null;
 
-        return $codeList;
-
+        return self::$instances[$cacheKey] = $codeList;
     }
 
-    /**
-     * Get Code
-     *
-     * @return string
-     */
-    public function getCode()
+    public static function values(string $language = 'en'): array
+    {
+        if (!property_exists(static::class, $language)) {
+            throw new InvalidCodeListLanguageException(
+                sprintf('Missing language \'%s\' in %s', $language, static::class)
+            );
+        }
+
+        $values = static::${$language};
+
+        if (!is_array($values)) {
+            throw new InvalidCodeListLanguageException(
+                sprintf('Missing language \'%s\' in %s', $language, static::class)
+            );
+        }
+
+        return $values;
+    }
+
+    public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * Get Value
-     *
-     * @return string
-     */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
-    /**
-     * Convert the CodeList Object to string
-     *
-     * @return string
-     */
-    public function __toString()
+    public function isKnown(): bool
     {
-        return $this->value;
+        return $this->value !== null;
     }
 
+    public function is(string ...$codes): bool
+    {
+        return in_array($this->code, $codes, true);
+    }
+
+    public function __toString(): string
+    {
+        return $this->value ?? $this->code;
+    }
 }

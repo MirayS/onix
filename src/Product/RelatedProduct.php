@@ -1,74 +1,98 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList51;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList150;
+use MirayS\Onix\CodeList\CodeList175;
+use MirayS\Onix\CodeList\CodeList51;
 
 class RelatedProduct
 {
+    private array $ProductRelationCode = [];
 
-    /**
-     * Array of Product Relation Codes
-     *
-     * @var array
-     */
-    protected $ProductRelationCode = [];
+    private array $ProductIdentifier = [];
 
-    /**
-     * Array of ProductIdentifiers
-     *
-     * @var array|ProductIdentifier
-     */
-    protected $ProductIdentifier = [];
-    
-    /**
-     * Set ProductRelationCode
-     *
-     * @param CodeList51 $ProductRelationCode
-     * @return void
-     */
-    public function addProductRelationCode(CodeList51 $ProductRelationCode)
+    private ?CodeList150 $ProductForm = null;
+
+    private array $ProductFormDetail = [];
+
+    public function addProductRelationCode(CodeList51 $productRelationCode): static
     {
-        $this->ProductRelationCode[] = $ProductRelationCode;
+        $this->ProductRelationCode[] = $productRelationCode;
+
+        return $this;
     }
 
-    /**
-     * Set ProductIdentifier
-     *
-     * @param ProductIdentifier $ProductIdentifier
-     * @return void
-     */
-    public function addProductIdentifier(ProductIdentifier $ProductIdentifier)
-    {
-        $this->ProductIdentifier[] = $ProductIdentifier;
-    }
-
-    /**
-     * Get ProductRelationCodes
-     *
-     * @return array
-     */
-    public function getProductRelationCode()
+    public function getProductRelationCode(): array
     {
         return $this->ProductRelationCode;
     }
 
-    /**
-     * Get ProductIdentifiers
-     *
-     * @return array
-     */
-    public function getProductIdentifier()
+    public function removeProductRelationCode(CodeList51 $productRelationCode): static
+    {
+        $this->ProductRelationCode = array_values(array_filter(
+            $this->ProductRelationCode,
+            static fn ($item): bool => $item !== $productRelationCode,
+        ));
+
+        return $this;
+    }
+
+    public function addProductIdentifier(ProductIdentifier $productIdentifier): static
+    {
+        $this->ProductIdentifier[] = $productIdentifier;
+
+        return $this;
+    }
+
+    public function getProductIdentifier(): array
     {
         return $this->ProductIdentifier;
     }
 
-    public function removeProductRelationCode(CodeList51 $ProductRelationCode)
+    public function removeProductIdentifier(ProductIdentifier $productIdentifier): static
     {
+        $this->ProductIdentifier = array_values(array_filter(
+            $this->ProductIdentifier,
+            static fn ($item): bool => $item !== $productIdentifier,
+        ));
+
+        return $this;
     }
 
-    public function removeProductIdentifier(ProductIdentifier $ProductIdentifier)
+    public function setProductForm(CodeList150 $productForm): static
     {
+        $this->ProductForm = $productForm;
+
+        return $this;
     }
 
+    public function getProductForm(): ?CodeList150
+    {
+        return $this->ProductForm;
+    }
+
+    public function addProductFormDetail(CodeList175 $productFormDetail): static
+    {
+        $this->ProductFormDetail[] = $productFormDetail;
+
+        return $this;
+    }
+
+    public function getProductFormDetail(): array
+    {
+        return $this->ProductFormDetail;
+    }
+
+    public function removeProductFormDetail(CodeList175 $productFormDetail): static
+    {
+        $this->ProductFormDetail = array_values(array_filter(
+            $this->ProductFormDetail,
+            static fn ($item): bool => $item !== $productFormDetail,
+        ));
+
+        return $this;
+    }
 }

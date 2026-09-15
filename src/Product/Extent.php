@@ -1,95 +1,67 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList23;
-use Ribal\Onix\CodeList\CodeList24;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList23;
+use MirayS\Onix\CodeList\CodeList24;
 
 class Extent
 {
+    private ?CodeList23 $ExtentType = null;
 
-    /**
-     * ExtentType
-     *
-     * @var CodeList
-     */
-    protected $ExtentType;
+    private ?string $ExtentValue = null;
 
-    /**
-     * ExtentValue
-     *
-     * @var string
-     */
-    protected $ExtentValue;
+    private ?string $ExtentValueRoman = null;
 
-    /**
-     * ExtentUnit
-     *
-     * @var CodeList
-     */
-    protected $ExtentUnit;
+    private ?CodeList24 $ExtentUnit = null;
 
-    /**
-     * Set ExtentType
-     *
-     * @param string $ExtentType
-     * @return void
-     */
-    public function setExtentType(CodeList23 $ExtentType)
+    public function setExtentType(CodeList23 $extentType): static
     {
-        $this->ExtentType = $ExtentType;
+        $this->ExtentType = $extentType;
+
+        return $this;
     }
 
-    /**
-     * Set ExtentValue
-     *
-     * @param string $ExtentValue
-     * @return void
-     */
-    public function setExtentValue(string $ExtentValue)
-    {
-        $this->ExtentValue = $ExtentValue;
-    }
-
-    /**
-     * Set ExtentUnit
-     *
-     * @param string $ExtentUnit
-     * @return void
-     */
-    public function setExtentUnit(CodeList24 $ExtentUnit)
-    {
-        $this->ExtentUnit = $ExtentUnit;
-    }
-
-    /**
-     * Get ExtentType
-     *
-     * @return CodeList
-     */
-    public function getExtentType()
+    public function getExtentType(): ?CodeList23
     {
         return $this->ExtentType;
     }
 
-    /**
-     * Get ExtentValue
-     *
-     * @return string
-     */
-    public function getExtentValue()
+    public function setExtentValue(string $extentValue): static
+    {
+        $this->ExtentValue = $extentValue;
+
+        return $this;
+    }
+
+    public function getExtentValue(): ?string
     {
         return $this->ExtentValue;
     }
 
-    /**
-     * Get ExtentUnit
-     *
-     * @return CodeList
-     */
-    public function getExtentUnit()
+    public function setExtentValueRoman(string $extentValueRoman): static
+    {
+        $this->ExtentValueRoman = $extentValueRoman;
+
+        return $this;
+    }
+
+    public function getExtentValueRoman(): ?string
+    {
+        return $this->ExtentValueRoman;
+    }
+
+    public function setExtentUnit(CodeList24 $extentUnit): static
+    {
+        $this->ExtentUnit = $extentUnit;
+
+        return $this;
+    }
+
+    public function getExtentUnit(): ?CodeList24
     {
         return $this->ExtentUnit;
     }
-
 }

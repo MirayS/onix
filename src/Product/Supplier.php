@@ -1,126 +1,158 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList93;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList93;
 
 class Supplier
 {
+    private ?CodeList93 $SupplierRole = null;
 
-    /**
-     * SupplierRole
-     *
-     * @var CodeList
-     */
-    protected $SupplierRole;
+    private array $SupplierIdentifier = [];
 
-    /**
-     * Array of SupplierIdentifiers
-     *
-     * @var array|SupplierIdentifier
-     */
-    protected $SupplierIdentifier = [];
+    private ?string $SupplierName = null;
 
-    /**
-     * SupplierName
-     *
-     * @var string
-     */
-    protected $SupplierName;
+    private array $TelephoneNumber = [];
 
-    /**
-     * TelephoneNumber
-     *
-     * @var string
-     */
-    protected $TelephoneNumber;
+    private array $FaxNumber = [];
 
-    /**
-     * Set SupplierRole
-     *
-     * @param CodeList93 $SupplierRole
-     * @return void
-     */
-    public function setSupplierRole(CodeList93 $SupplierRole)
+    private array $EmailAddress = [];
+
+    private array $Website = [];
+
+    public function setSupplierRole(CodeList93 $supplierRole): static
     {
-        $this->SupplierRole = $SupplierRole;
+        $this->SupplierRole = $supplierRole;
+
+        return $this;
     }
 
-    /**
-     * Set SupplierIdentifier
-     *
-     * @param SupplierIdentifier $SupplierIdentifier
-     * @return void
-     */
-    public function addSupplierIdentifier(SupplierIdentifier $SupplierIdentifier)
-    {
-        $this->SupplierIdentifier[] = $SupplierIdentifier;
-    }
-
-    /**
-     * Set SupplierName
-     *
-     * @param string $SupplierName
-     * @return void
-     */
-    public function setSupplierName(string $SupplierName)
-    {
-        $this->SupplierName = $SupplierName;
-    }
-
-    /**
-     * Set TelephoneNumber
-     *
-     * @param string $TelephoneNumber
-     * @return void
-     */
-    public function setTelephoneNumber(string $TelephoneNumber)
-    {
-        $this->TelephoneNumber = $TelephoneNumber;
-    }
-
-    /**
-     * Get SupplierRole
-     *
-     * @return CodeList
-     */
-    public function getSupplierRole()
+    public function getSupplierRole(): ?CodeList93
     {
         return $this->SupplierRole;
     }
 
-    /**
-     * Get SupplierIdentifiers
-     *
-     * @return array
-     */
-    public function getSupplierIdentifier()
+    public function addSupplierIdentifier(SupplierIdentifier $supplierIdentifier): static
+    {
+        $this->SupplierIdentifier[] = $supplierIdentifier;
+
+        return $this;
+    }
+
+    public function getSupplierIdentifier(): array
     {
         return $this->SupplierIdentifier;
     }
 
-    /**
-     * Get SupplierName
-     *
-     * @return string
-     */
-    public function getSupplierName()
+    public function removeSupplierIdentifier(SupplierIdentifier $supplierIdentifier): static
+    {
+        $this->SupplierIdentifier = array_values(array_filter(
+            $this->SupplierIdentifier,
+            static fn ($item): bool => $item !== $supplierIdentifier,
+        ));
+
+        return $this;
+    }
+
+    public function setSupplierName(string $supplierName): static
+    {
+        $this->SupplierName = $supplierName;
+
+        return $this;
+    }
+
+    public function getSupplierName(): ?string
     {
         return $this->SupplierName;
     }
 
-    /**
-     * Get TelephoneNumber
-     *
-     * @return string
-     */
-    public function getTelephoneNumber()
+    public function addTelephoneNumber(string $telephoneNumber): static
+    {
+        $this->TelephoneNumber[] = $telephoneNumber;
+
+        return $this;
+    }
+
+    public function getTelephoneNumber(): array
     {
         return $this->TelephoneNumber;
     }
 
-    public function removeSupplierIdentifier(SupplierIdentifier $SupplierIdentifier)
+    public function removeTelephoneNumber(string $telephoneNumber): static
     {
+        $this->TelephoneNumber = array_values(array_filter(
+            $this->TelephoneNumber,
+            static fn ($item): bool => $item !== $telephoneNumber,
+        ));
+
+        return $this;
     }
 
+    public function addFaxNumber(string $faxNumber): static
+    {
+        $this->FaxNumber[] = $faxNumber;
+
+        return $this;
+    }
+
+    public function getFaxNumber(): array
+    {
+        return $this->FaxNumber;
+    }
+
+    public function removeFaxNumber(string $faxNumber): static
+    {
+        $this->FaxNumber = array_values(array_filter(
+            $this->FaxNumber,
+            static fn ($item): bool => $item !== $faxNumber,
+        ));
+
+        return $this;
+    }
+
+    public function addEmailAddress(string $emailAddress): static
+    {
+        $this->EmailAddress[] = $emailAddress;
+
+        return $this;
+    }
+
+    public function getEmailAddress(): array
+    {
+        return $this->EmailAddress;
+    }
+
+    public function removeEmailAddress(string $emailAddress): static
+    {
+        $this->EmailAddress = array_values(array_filter(
+            $this->EmailAddress,
+            static fn ($item): bool => $item !== $emailAddress,
+        ));
+
+        return $this;
+    }
+
+    public function addWebsite(Website $website): static
+    {
+        $this->Website[] = $website;
+
+        return $this;
+    }
+
+    public function getWebsite(): array
+    {
+        return $this->Website;
+    }
+
+    public function removeWebsite(Website $website): static
+    {
+        $this->Website = array_values(array_filter(
+            $this->Website,
+            static fn ($item): bool => $item !== $website,
+        ));
+
+        return $this;
+    }
 }

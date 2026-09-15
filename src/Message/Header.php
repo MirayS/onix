@@ -1,122 +1,158 @@
 <?php
 
-namespace Ribal\Onix\Message;
+declare(strict_types=1);
 
-use Ribal\Onix\Date;
+namespace MirayS\Onix\Message;
+
+use MirayS\Onix\CodeList\CodeList58;
+use MirayS\Onix\CodeList\CodeList74;
+use MirayS\Onix\CodeList\CodeList96;
 
 class Header
 {
+    private ?Sender $Sender = null;
 
-    /**
-     * Message Sender
-     *
-     * @var Sender $sender
-     */
-    protected $Sender;
+    private array $Addressee = [];
 
-    /**
-     * Message Date
-     *
-     * @var Date
-     */
-    protected $SentDateTime;
+    private ?int $MessageNumber = null;
 
-    /**
-     * MessageNote
-     *
-     * @var string
-     */
-    protected $MessageNote;
+    private ?int $MessageRepeat = null;
 
-    /**
-     * Message number
-     *
-     * @var string
-     */
-    protected $MessageNumber;
+    private ?string $SentDateTime = null;
 
-    /**
-     * Set Sender
-     *
-     * @param Sender $sender
-     * @return void
-     */
-    public function setSender(Sender $sender)
+    private array $MessageNote = [];
+
+    private ?CodeList74 $DefaultLanguageOfText = null;
+
+    private ?CodeList58 $DefaultPriceType = null;
+
+    private ?CodeList96 $DefaultCurrencyCode = null;
+
+    public function setSender(Sender $sender): static
     {
         $this->Sender = $sender;
+
+        return $this;
     }
 
-    /**
-     * Set SentDateTime
-     *
-     * @param Date $SentDateTime
-     * @return void
-     */
-    public function setSentDateTime(Date $SentDateTime)
-    {
-        $this->SentDateTime = $SentDateTime;
-    }
-
-    /**
-     * Set MessageNote
-     *
-     * @param string $messageNote
-     * @return void
-     */
-    public function setMessageNote(string $messageNote)
-    {
-        $this->MessageNote = $messageNote;
-    }
-
-    /**
-     * Set MessageNumber
-     *
-     * @param string $messageNumber
-     * @return void
-     */
-    public function setMessageNumber(string $messageNumber)
-    {
-        $this->MessageNumber = $messageNumber;
-    }
-
-    /**
-     * Get Sender
-     *
-     * @return Sender
-     */
-    public function getSender()
+    public function getSender(): ?Sender
     {
         return $this->Sender;
     }
 
-    /**
-     * Get SentDateTime
-     *
-     * @return Date
-     */
-    public function getSentDateTime()
+    public function addAddressee(Addressee $addressee): static
     {
-        return $this->SentDateTime;
+        $this->Addressee[] = $addressee;
+
+        return $this;
     }
 
-    /**
-     * Get MessageNote
-     *
-     * @return string
-     */
-    public function getMessageNote()
+    public function getAddressee(): array
     {
-        return $this->MessageNote;
+        return $this->Addressee;
     }
 
-    /**
-     * Get MessageNumber
-     *
-     * @return string
-     */
-    public function getMessageNumber()
+    public function removeAddressee(Addressee $addressee): static
+    {
+        $this->Addressee = array_values(array_filter(
+            $this->Addressee,
+            static fn ($item): bool => $item !== $addressee,
+        ));
+
+        return $this;
+    }
+
+    public function setMessageNumber(int $messageNumber): static
+    {
+        $this->MessageNumber = $messageNumber;
+
+        return $this;
+    }
+
+    public function getMessageNumber(): ?int
     {
         return $this->MessageNumber;
     }
 
+    public function setMessageRepeat(int $messageRepeat): static
+    {
+        $this->MessageRepeat = $messageRepeat;
+
+        return $this;
+    }
+
+    public function getMessageRepeat(): ?int
+    {
+        return $this->MessageRepeat;
+    }
+
+    public function setSentDateTime(string $sentDateTime): static
+    {
+        $this->SentDateTime = $sentDateTime;
+
+        return $this;
+    }
+
+    public function getSentDateTime(): ?string
+    {
+        return $this->SentDateTime;
+    }
+
+    public function addMessageNote(string $messageNote): static
+    {
+        $this->MessageNote[] = $messageNote;
+
+        return $this;
+    }
+
+    public function getMessageNote(): array
+    {
+        return $this->MessageNote;
+    }
+
+    public function removeMessageNote(string $messageNote): static
+    {
+        $this->MessageNote = array_values(array_filter(
+            $this->MessageNote,
+            static fn ($item): bool => $item !== $messageNote,
+        ));
+
+        return $this;
+    }
+
+    public function setDefaultLanguageOfText(CodeList74 $defaultLanguageOfText): static
+    {
+        $this->DefaultLanguageOfText = $defaultLanguageOfText;
+
+        return $this;
+    }
+
+    public function getDefaultLanguageOfText(): ?CodeList74
+    {
+        return $this->DefaultLanguageOfText;
+    }
+
+    public function setDefaultPriceType(CodeList58 $defaultPriceType): static
+    {
+        $this->DefaultPriceType = $defaultPriceType;
+
+        return $this;
+    }
+
+    public function getDefaultPriceType(): ?CodeList58
+    {
+        return $this->DefaultPriceType;
+    }
+
+    public function setDefaultCurrencyCode(CodeList96 $defaultCurrencyCode): static
+    {
+        $this->DefaultCurrencyCode = $defaultCurrencyCode;
+
+        return $this;
+    }
+
+    public function getDefaultCurrencyCode(): ?CodeList96
+    {
+        return $this->DefaultCurrencyCode;
+    }
 }

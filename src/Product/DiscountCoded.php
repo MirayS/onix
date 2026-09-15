@@ -1,66 +1,52 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList100;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList100;
 
 class DiscountCoded
 {
+    private ?CodeList100 $DiscountCodeType = null;
 
-    /**
-     * DiscountCodeType
-     *
-     * @var CodeList
-     */
-    protected $DiscountCodeType;
+    private ?string $DiscountCodeTypeName = null;
 
-    /**
-     * DiscountCode
-     *
-     * @var string
-     */
-    protected $DiscountCode;
+    private ?string $DiscountCode = null;
 
-    /**
-     * Set DiscountCodeType
-     *
-     * @param CodeList100 $DiscountCodeType
-     * @return void
-     */
-    public function setDiscountCodeType(CodeList100 $DiscountCodeType)
+    public function setDiscountCodeType(CodeList100 $discountCodeType): static
     {
-        $this->DiscountCodeType = $DiscountCodeType;
+        $this->DiscountCodeType = $discountCodeType;
+
+        return $this;
     }
 
-    /**
-     * Set DiscountCode
-     *
-     * @param string $DiscountCode
-     * @return void
-     */
-    public function setDiscountCode(string $DiscountCode)
-    {
-        $this->DiscountCode = $DiscountCode;
-    }
-
-    /**
-     * Get DiscountCodeType
-     *
-     * @return CodeList
-     */
-    public function getDiscountCodeType()
+    public function getDiscountCodeType(): ?CodeList100
     {
         return $this->DiscountCodeType;
     }
 
-    /**
-     * Get DiscountCode
-     *
-     * @return string
-     */
-    public function getDiscountCode()
+    public function setDiscountCodeTypeName(string $discountCodeTypeName): static
+    {
+        $this->DiscountCodeTypeName = $discountCodeTypeName;
+
+        return $this;
+    }
+
+    public function getDiscountCodeTypeName(): ?string
+    {
+        return $this->DiscountCodeTypeName;
+    }
+
+    public function setDiscountCode(string $discountCode): static
+    {
+        $this->DiscountCode = $discountCode;
+
+        return $this;
+    }
+
+    public function getDiscountCode(): ?string
     {
         return $this->DiscountCode;
     }
-
 }

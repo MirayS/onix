@@ -1,204 +1,143 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList149;
-use Ribal\Onix\TextNode;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList149;
+use MirayS\Onix\Support\TitleElementShortcuts;
 
 class TitleElement
 {
-    /**
-     * SequenceNumber
-     *
-     * @var string
-     */
-    protected $SequenceNumber;
+    use TitleElementShortcuts;
 
-    /**
-     * TitleElementLevel
-     *
-     * @var CodeList
-     */
-    protected $TitleElementLevel;
+    private ?int $SequenceNumber = null;
 
-    /**
-     * TitlePrefix
-     *
-     * @var string
-     */
-    protected $TitlePrefix;
+    private ?CodeList149 $TitleElementLevel = null;
 
-    /**
-     * TitleWithoutPrefix
-     *
-     * @var string
-     */
-    protected $TitleWithoutPrefix;
+    private ?string $PartNumber = null;
 
-    /**
-     * TitleText
-     *
-     * @var string
-     */
-    protected $TitleText;
+    private ?string $YearOfAnnual = null;
 
-    /**
-     * Subtitle
-     *
-     * @var string
-     */
-    protected $Subtitle;
+    private ?string $TitlePrefix = null;
 
-    /**
-     * PartNumber
-     *
-     * @var int
-     */
-    protected $PartNumber;
+    private ?bool $NoPrefix = null;
 
-    /**
-     * Set SequenceNumber
-     *
-     * @param string $SequenceNumber
-     * @return void
-     */
-    public function setSequenceNumber(string $SequenceNumber)
+    private ?string $TitleWithoutPrefix = null;
+
+    private ?string $TitleText = null;
+
+    private ?string $Subtitle = null;
+
+    public function setSequenceNumber(int $sequenceNumber): static
     {
-        $this->SequenceNumber = $SequenceNumber;
+        $this->SequenceNumber = $sequenceNumber;
+
+        return $this;
     }
 
-    /**
-     * Set TitleElementLevel
-     *
-     * @param string $TitleElementLevel
-     * @return void
-     */
-    public function setTitleElementLevel(CodeList149 $TitleElementLevel)
-    {
-        $this->TitleElementLevel = $TitleElementLevel;
-    }
-
-    /**
-     * TitlePrefix
-     *
-     * @param string $TitlePrefix
-     * @return void
-     */
-    public function setTitlePrefix($TitlePrefix)
-    {
-        $this->TitlePrefix = $TitlePrefix;
-    }
-
-    /**
-     * TitleWithoutPrefix
-     *
-     * @param string $TitleWithoutPrefix
-     * @return void
-     */
-    public function setTitleWithoutPrefix($TitleWithoutPrefix)
-    {
-        $this->TitleWithoutPrefix = $TitleWithoutPrefix;
-    }
-
-    /**
-     * Set PartNumber
-     *
-     * @param string $PartNumber
-     * @return void
-     */
-    public function setPartNumber(string $PartNumber)
-    {
-        $this->PartNumber = $PartNumber;
-    }
-
-    /**
-     * Set TitleText
-     *
-     * @param string $TitleText
-     * @return void
-     */
-    public function setTitleText(string $TitleText)
-    {
-        $this->TitleText = $TitleText;
-    }
-
-    /**
-     * Set Subtitle
-     *
-     * @param string $Subtitle
-     * @return void
-     */
-    public function setSubtitle(string $Subtitle)
-    {
-        $this->Subtitle = $Subtitle;
-    }
-
-    /**
-     * Get SequenceNumber
-     *
-     * @return void
-     */
-    public function getSequenceNumber()
+    public function getSequenceNumber(): ?int
     {
         return $this->SequenceNumber;
     }
 
-    /**
-     * TitleElementLevel
-     *
-     * @return void
-     */
-    public function getTitleElementLevel()
+    public function setTitleElementLevel(CodeList149 $titleElementLevel): static
+    {
+        $this->TitleElementLevel = $titleElementLevel;
+
+        return $this;
+    }
+
+    public function getTitleElementLevel(): ?CodeList149
     {
         return $this->TitleElementLevel;
     }
 
-    /**
-     * Get TitlePrefix
-     *
-     * @return void
-     */
-    public function getTitlePrefix()
+    public function setPartNumber(string $partNumber): static
     {
-        return $this->TitlePrefix;
+        $this->PartNumber = $partNumber;
+
+        return $this;
     }
 
-    /**
-     * Get TitleWithoutPrefix
-     *
-     * @return string
-     */
-    public function getTitleWithoutPrefix()
-    {
-        return $this->TitleWithoutPrefix;
-    }
-
-    /**
-     * Get PartNumber
-     *
-     * @return int
-     */
-    public function getPartNumber()
+    public function getPartNumber(): ?string
     {
         return $this->PartNumber;
     }
 
-    /**
-     * Get TitleText
-     *
-     * @return string
-     */
-    public function getTitleText()
+    public function setYearOfAnnual(string $yearOfAnnual): static
+    {
+        $this->YearOfAnnual = $yearOfAnnual;
+
+        return $this;
+    }
+
+    public function getYearOfAnnual(): ?string
+    {
+        return $this->YearOfAnnual;
+    }
+
+    public function setTitlePrefix(string $titlePrefix): static
+    {
+        $this->TitlePrefix = $titlePrefix;
+
+        return $this;
+    }
+
+    public function getTitlePrefix(): ?string
+    {
+        return $this->TitlePrefix;
+    }
+
+    public function setNoPrefix(bool $noPrefix): static
+    {
+        $this->NoPrefix = $noPrefix;
+
+        return $this;
+    }
+
+    public function getNoPrefix(): ?bool
+    {
+        return $this->NoPrefix;
+    }
+
+    public function hasNoPrefix(): bool
+    {
+        return $this->NoPrefix === true;
+    }
+
+    public function setTitleWithoutPrefix(string $titleWithoutPrefix): static
+    {
+        $this->TitleWithoutPrefix = $titleWithoutPrefix;
+
+        return $this;
+    }
+
+    public function getTitleWithoutPrefix(): ?string
+    {
+        return $this->TitleWithoutPrefix;
+    }
+
+    public function setTitleText(string $titleText): static
+    {
+        $this->TitleText = $titleText;
+
+        return $this;
+    }
+
+    public function getTitleText(): ?string
     {
         return $this->TitleText;
     }
 
-    /**
-     * Get Subtitle
-     *
-     * @return string
-     */
-    public function getSubtitle()
+    public function setSubtitle(string $subtitle): static
+    {
+        $this->Subtitle = $subtitle;
+
+        return $this;
+    }
+
+    public function getSubtitle(): ?string
     {
         return $this->Subtitle;
     }

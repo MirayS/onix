@@ -1,208 +1,241 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList154;
-use Ribal\Onix\CodeList\CodeList156;
-use Ribal\Onix\CodeList\CodeList157;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList154;
+use MirayS\Onix\CodeList\CodeList156;
+use MirayS\Onix\CodeList\CodeList157;
+use MirayS\Onix\Text;
 
 class CitedContent
 {
+    private ?int $SequenceNumber = null;
 
-    /**
-     * CitedContent
-     *
-     * @var CodeList
-     */
-    protected $CitedContent;
+    private ?CodeList156 $CitedContentType = null;
 
-    /**
-     * ContentAudience
-     *
-     * @var CodeList
-     */
-    protected $ContentAudience;
+    private array $ContentAudience = [];
 
-    /**
-     * SourceType
-     *
-     * @var CodeList
-     */
-    protected $SourceType;
+    private ?Territory $Territory = null;
 
-    /**
-     * SourceTitle
-     *
-     * @var string
-     */
-    protected $SourceTitle;
+    private ?CodeList157 $SourceType = null;
 
-    /**
-     * CitationNote
-     *
-     * @var string
-     */
-    protected $CitationNote;
+    private ?ReviewRating $ReviewRating = null;
 
-    /**
-     * ResourceLink
-     *
-     * @var string
-     */
-    protected $ResourceLink;
+    private array $SourceTitle = [];
 
-    /**
-     * ContentDate
-     *
-     * @var ContentDate
-     */
-    protected $ContentDate;
+    private array $ListName = [];
 
-    /**
-     * Set CitedContent
-     *
-     * @param CodeList156 $CitedContent
-     * @return void
-     */
-    public function setCitedContent(CodeList156 $CitedContent)
+    private ?int $PositionOnList = null;
+
+    private array $CitationNote = [];
+
+    private array $ResourceLink = [];
+
+    private array $ContentDate = [];
+
+    public function setSequenceNumber(int $sequenceNumber): static
     {
-        $this->CitedContent = $CitedContent;
+        $this->SequenceNumber = $sequenceNumber;
+
+        return $this;
     }
 
-    /**
-     * Set ContentAudience
-     *
-     * @param CodeList154 $ContentAudience
-     * @return void
-     */
-    public function setContentAudience(CodeList154 $ContentAudience)
+    public function getSequenceNumber(): ?int
     {
-        $this->ContentAudience = $ContentAudience;
+        return $this->SequenceNumber;
     }
 
-    /**
-     * Set SourceType
-     *
-     * @param CodeList157 $SourceType
-     * @return void
-     */
-    public function setSourceType(CodeList157 $SourceType)
+    public function setCitedContentType(CodeList156 $citedContentType): static
     {
-        $this->SourceType = $SourceType;
+        $this->CitedContentType = $citedContentType;
+
+        return $this;
     }
 
-    /**
-     * Set SourceTitle
-     *
-     * @param string $SourceTitle
-     * @return void
-     */
-    public function setSourceTitle(string $SourceTitle)
+    public function getCitedContentType(): ?CodeList156
     {
-        $this->SourceTitle = $SourceTitle;
+        return $this->CitedContentType;
     }
 
-    /**
-     * Set CitationNote
-     *
-     * @param string $CitationNote
-     * @return void
-     */
-    public function setCitationNote(string $CitationNote)
+    public function addContentAudience(CodeList154 $contentAudience): static
     {
-        $this->CitationNote = $CitationNote;
+        $this->ContentAudience[] = $contentAudience;
+
+        return $this;
     }
 
-    /**
-     * Set ResourceLink
-     *
-     * @param string $ResourceLink
-     * @return void
-     */
-    public function setResourceLink(string $ResourceLink)
-    {
-        $this->ResourceLink = $ResourceLink;
-    }
-
-    /**
-     * Set ContentDate
-     *
-     * @param ContentDate $ContentDate
-     * @return void
-     */
-    public function setContentDate(ContentDate $ContentDate)
-    {
-        $this->ContentDate = $ContentDate;
-    }
-
-    /**
-     * Get CitedContent
-     *
-     * @return CodeList
-     */
-    public function getCitedContent()
-    {
-        return $this->CitedContent;
-    }
-
-    /**
-     * Get ContentAudience
-     *
-     * @return void
-     */
-    public function getContentAudience()
+    public function getContentAudience(): array
     {
         return $this->ContentAudience;
     }
 
-    /**
-     * Get SourceType
-     *
-     * @return CodeList
-     */
-    public function getSourceType()
+    public function removeContentAudience(CodeList154 $contentAudience): static
+    {
+        $this->ContentAudience = array_values(array_filter(
+            $this->ContentAudience,
+            static fn ($item): bool => $item !== $contentAudience,
+        ));
+
+        return $this;
+    }
+
+    public function setTerritory(Territory $territory): static
+    {
+        $this->Territory = $territory;
+
+        return $this;
+    }
+
+    public function getTerritory(): ?Territory
+    {
+        return $this->Territory;
+    }
+
+    public function setSourceType(CodeList157 $sourceType): static
+    {
+        $this->SourceType = $sourceType;
+
+        return $this;
+    }
+
+    public function getSourceType(): ?CodeList157
     {
         return $this->SourceType;
     }
 
-    /**
-     * Get SourceTitle
-     *
-     * @return string
-     */
-    public function getSourceTitle()
+    public function setReviewRating(ReviewRating $reviewRating): static
+    {
+        $this->ReviewRating = $reviewRating;
+
+        return $this;
+    }
+
+    public function getReviewRating(): ?ReviewRating
+    {
+        return $this->ReviewRating;
+    }
+
+    public function addSourceTitle(string $sourceTitle): static
+    {
+        $this->SourceTitle[] = $sourceTitle;
+
+        return $this;
+    }
+
+    public function getSourceTitle(): array
     {
         return $this->SourceTitle;
     }
 
-    /**
-     * Get CitationNote
-     *
-     * @return string
-     */
-    public function getCitationNote()
+    public function removeSourceTitle(string $sourceTitle): static
+    {
+        $this->SourceTitle = array_values(array_filter(
+            $this->SourceTitle,
+            static fn ($item): bool => $item !== $sourceTitle,
+        ));
+
+        return $this;
+    }
+
+    public function addListName(string $listName): static
+    {
+        $this->ListName[] = $listName;
+
+        return $this;
+    }
+
+    public function getListName(): array
+    {
+        return $this->ListName;
+    }
+
+    public function removeListName(string $listName): static
+    {
+        $this->ListName = array_values(array_filter(
+            $this->ListName,
+            static fn ($item): bool => $item !== $listName,
+        ));
+
+        return $this;
+    }
+
+    public function setPositionOnList(int $positionOnList): static
+    {
+        $this->PositionOnList = $positionOnList;
+
+        return $this;
+    }
+
+    public function getPositionOnList(): ?int
+    {
+        return $this->PositionOnList;
+    }
+
+    public function addCitationNote(Text $citationNote): static
+    {
+        $this->CitationNote[] = $citationNote;
+
+        return $this;
+    }
+
+    public function getCitationNote(): array
     {
         return $this->CitationNote;
     }
 
-    /**
-     * Get ResourceLink
-     *
-     * @return string
-     */
-    public function getResourceLink()
+    public function removeCitationNote(Text $citationNote): static
+    {
+        $this->CitationNote = array_values(array_filter(
+            $this->CitationNote,
+            static fn ($item): bool => $item !== $citationNote,
+        ));
+
+        return $this;
+    }
+
+    public function addResourceLink(string $resourceLink): static
+    {
+        $this->ResourceLink[] = $resourceLink;
+
+        return $this;
+    }
+
+    public function getResourceLink(): array
     {
         return $this->ResourceLink;
     }
 
-    /**
-     * Get ContentDate
-     *
-     * @return ContentDate
-     */
-    public function getContentDate()
+    public function removeResourceLink(string $resourceLink): static
+    {
+        $this->ResourceLink = array_values(array_filter(
+            $this->ResourceLink,
+            static fn ($item): bool => $item !== $resourceLink,
+        ));
+
+        return $this;
+    }
+
+    public function addContentDate(ContentDate $contentDate): static
+    {
+        $this->ContentDate[] = $contentDate;
+
+        return $this;
+    }
+
+    public function getContentDate(): array
     {
         return $this->ContentDate;
     }
 
+    public function removeContentDate(ContentDate $contentDate): static
+    {
+        $this->ContentDate = array_values(array_filter(
+            $this->ContentDate,
+            static fn ($item): bool => $item !== $contentDate,
+        ));
+
+        return $this;
+    }
 }

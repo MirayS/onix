@@ -1,89 +1,70 @@
 <?php
 
-namespace Ribal\Onix\Message;
+declare(strict_types=1);
 
-use Ribal\Onix\Message\Header as Header;
-use Ribal\Onix\Product\Product;
-use Doctrine\Common\Annotations\Annotation\Attribute;
+namespace MirayS\Onix\Message;
+
+use MirayS\Onix\Product\Product;
+use MirayS\Onix\Support\MessageShortcuts;
 
 class Message
 {
+    use MessageShortcuts;
 
-    /**
-     * Message Header
-     *
-     * @var Header $header
-     */
-    protected $Header;
+    private ?Header $Header = null;
 
-    /**
-     * Message Products
-     *
-     * @var Product $Product[]
-     */
-    protected $Product = [];
+    private ?bool $NoProduct = null;
 
-    /**
-     * Set the Header
-     *
-     * @param Header $header
-     * @return void
-     */
-    public function setHeader(Header $header)
+    private array $Product = [];
+
+    public function setHeader(Header $header): static
     {
         $this->Header = $header;
+
+        return $this;
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param Product $product
-     * @return void
-     */
-    public function addProduct(Product $product)
-    {
-        $this->Product[] = $product;
-    }
-
-    /**
-     * Removes a Product from collection
-     *
-     * @param Product $product
-     * @return void
-     */
-    public function removeProduct(Product $product)
-    {
-        
-    }
-
-    /**
-     * Get the Header
-     *
-     * @return Header
-     */
-    public function getHeader()
+    public function getHeader(): ?Header
     {
         return $this->Header;
     }
 
-    /**
-     * Get the products
-     *
-     * @return array
-     */
-    public function getProduct()
+    public function setNoProduct(bool $noProduct): static
+    {
+        $this->NoProduct = $noProduct;
+
+        return $this;
+    }
+
+    public function getNoProduct(): ?bool
+    {
+        return $this->NoProduct;
+    }
+
+    public function hasNoProduct(): bool
+    {
+        return $this->NoProduct === true;
+    }
+
+    public function addProduct(Product $product): static
+    {
+        $this->Product[] = $product;
+
+        return $this;
+    }
+
+    public function getProduct(): array
     {
         return $this->Product;
     }
-    
-    /**
-     * Get the products
-     *
-     * @return array
-     */
-    public function getProducts()
-    {
-    	return $this->Product;
-    }
 
+    public function removeProduct(Product $product): static
+    {
+        $this->Product = array_values(array_filter(
+            $this->Product,
+            static fn ($item): bool => $item !== $product,
+        ));
+
+        return $this;
+    }
 }

@@ -1,8 +1,9 @@
 <?php
 
-namespace Ribal\Onix\Exception;
+declare(strict_types=1);
 
-class InvalidTextFormatException extends \InvalidArgumentException
+namespace MirayS\Onix\Exception;
+
+class InvalidTextFormatException extends OnixException
 {
-
 }

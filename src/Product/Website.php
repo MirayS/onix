@@ -1,66 +1,73 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList73;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList73;
+use MirayS\Onix\Text;
 
 class Website
 {
+    private ?CodeList73 $WebsiteRole = null;
 
-    /**
-     * WebsiteRole
-     *
-     * @var CodeList
-     */
-    protected $WebsiteRole;
+    private array $WebsiteDescription = [];
 
-    /**
-     * WebsiteLink
-     *
-     * @var string
-     */
-    protected $WebsiteLink;
+    private array $WebsiteLink = [];
 
-    /**
-     * Set WebsiteRole
-     *
-     * @param CodeList73 $WebsiteRole
-     * @return void
-     */
-    public function setWebsiteRole(CodeList73 $WebsiteRole)
+    public function setWebsiteRole(CodeList73 $websiteRole): static
     {
-        $this->WebsiteRole = $WebsiteRole;
+        $this->WebsiteRole = $websiteRole;
+
+        return $this;
     }
 
-    /**
-     * Set WebsiteLink
-     *
-     * @param string $WebsiteLink
-     * @return void
-     */
-    public function setWebsiteLink(string $WebsiteLink)
-    {
-        $this->WebsiteLink = $WebsiteLink;
-    }
-
-    /**
-     * Get WebsiteRole
-     *
-     * @return CodeList
-     */
-    public function getWebsiteRole()
+    public function getWebsiteRole(): ?CodeList73
     {
         return $this->WebsiteRole;
     }
 
-    /**
-     * Get WebsiteLink
-     *
-     * @return string
-     */
-    public function getWebsiteLink()
+    public function addWebsiteDescription(Text $websiteDescription): static
+    {
+        $this->WebsiteDescription[] = $websiteDescription;
+
+        return $this;
+    }
+
+    public function getWebsiteDescription(): array
+    {
+        return $this->WebsiteDescription;
+    }
+
+    public function removeWebsiteDescription(Text $websiteDescription): static
+    {
+        $this->WebsiteDescription = array_values(array_filter(
+            $this->WebsiteDescription,
+            static fn ($item): bool => $item !== $websiteDescription,
+        ));
+
+        return $this;
+    }
+
+    public function addWebsiteLink(string $websiteLink): static
+    {
+        $this->WebsiteLink[] = $websiteLink;
+
+        return $this;
+    }
+
+    public function getWebsiteLink(): array
     {
         return $this->WebsiteLink;
     }
 
+    public function removeWebsiteLink(string $websiteLink): static
+    {
+        $this->WebsiteLink = array_values(array_filter(
+            $this->WebsiteLink,
+            static fn ($item): bool => $item !== $websiteLink,
+        ));
+
+        return $this;
+    }
 }

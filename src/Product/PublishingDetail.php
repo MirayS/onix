@@ -1,256 +1,285 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList46;
-use Ribal\Onix\CodeList\CodeList64;
-use Ribal\Onix\CodeList\CodeList91;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList46;
+use MirayS\Onix\CodeList\CodeList64;
+use MirayS\Onix\CodeList\CodeList91;
+use MirayS\Onix\Text;
 
 class PublishingDetail
 {
+    private array $Imprint = [];
 
-    /**
-     * CityOfPublication
-     *
-     * @var string
-     */
-    protected $CityOfPublication;
+    private array $Publisher = [];
 
-    /**
-     * CountryOfPublication
-     *
-     * @var CodeList
-     */
-    protected $CountryOfPublication;
+    private array $CityOfPublication = [];
 
-    /**
-     * Publisher
-     *
-     * @var Publisher
-     */
-    protected $Publisher;
+    private ?CodeList91 $CountryOfPublication = null;
 
-    /**
-     * PublishingStatus
-     *
-     * @var CodeList
-     */
-    protected $PublishingStatus;
+    private array $ProductContact = [];
 
-    /**
-     * Array of PublishingDate
-     *
-     * @var array|PublishingDate
-     */
-    protected $PublishingDate = [];
+    private ?CodeList64 $PublishingStatus = null;
 
-    /**
-     * Array of SalesRights
-     *
-     * @var array|SalesRights
-     */
-    protected $SalesRights = [];
+    private array $PublishingStatusNote = [];
 
-    /**
-     * ROWSalesRightsType
-     *
-     * @var CodeList
-     */
-    protected $ROWSalesRightsType;
+    private array $PublishingDate = [];
 
-    /**
-     * Imprint
-     *
-     * @var Imprint
-     */
-    protected $Imprint;
+    private ?int $LatestReprintNumber = null;
 
-    /**
-     * Set CityOfPublication
-     *
-     * @param string|array $CityOfPublication
-     * @return void
-     */
-    public function setCityOfPublication($CityOfPublication)
+    private array $CopyrightStatement = [];
+
+    private array $CopyrightStatementText = [];
+
+    private array $SalesRights = [];
+
+    private ?CodeList46 $ROWSalesRightsType = null;
+
+    public function addImprint(Imprint $imprint): static
     {
-        $this->CityOfPublication = $CityOfPublication;
+        $this->Imprint[] = $imprint;
+
+        return $this;
     }
 
-    /**
-     * Set CountryOfPublication
-     *
-     * @param CodeList91 $CountryOfPublication
-     * @return void
-     */
-    public function setCountryOfPublication(CodeList91 $CountryOfPublication)
-    {
-        $this->CountryOfPublication = $CountryOfPublication;
-    }
-
-    /**
-     * Set Publisher
-     *
-     * @param Publisher $Publisher
-     * @return void
-     */
-    public function setPublisher(Publisher $Publisher)
-    {
-        $this->Publisher = $Publisher;
-    }
-
-    /**
-     * Set PublishingStatus
-     *
-     * @param CodeList64 $PublishingStatus
-     * @return void
-     */
-    public function setPublishingStatus(CodeList64 $PublishingStatus)
-    {
-        $this->PublishingStatus = $PublishingStatus;
-    }
-
-    /**
-     * Add new PublishingDate
-     *
-     * @param PublishingDate $PublishingDate
-     * @return void
-     */
-    public function addPublishingDate(PublishingDate $PublishingDate)
-    {
-        $this->PublishingDate[] = $PublishingDate;
-    }
-
-    /**
-     * Add SalesRights
-     *
-     * @param SalesRights $SalesRights
-     * @return void
-     */
-    public function addSalesRight(SalesRights $SalesRights)
-    {
-        $this->SalesRights[] = $SalesRights;
-    }
-
-    /**
-     * ROWSalesRightsType
-     *
-     * @param CodeList46 $ROWSalesRightsType
-     * @return void
-     */
-    public function setROWSalesRightsType(CodeList46 $ROWSalesRightsType)
-    {
-        $this->ROWSalesRightsType = $ROWSalesRightsType;
-    }
-
-    /**
-     * Set Imprint
-     *
-     * @param Imprint $Imprint
-     * @return void
-     */
-    public function setImprint(Imprint $Imprint)
-    {
-        $this->Imprint = $Imprint;
-    }
-
-    /**
-     * Get CityOfPublication
-     *
-     * @return string
-     */
-    public function getCityOfPublication()
-    {
-        return $this->CityOfPublication;
-    }
-
-    /**
-     * Get CountryOfPublication
-     *
-     * @return CodeList
-     */
-    public function getCountryOfPublication()
-    {
-        return $this->CountryOfPublication;
-    }
-
-    /**
-     * Get Publisher
-     *
-     * @return Publisher
-     */
-    public function getPublisher()
-    {
-        return $this->Publisher;
-    }
-
-    /**
-     * Get PublishingStatus
-     *
-     * @return CodeList
-     */
-    public function getPublishingStatus()
-    {
-        return $this->PublishingStatus;
-    }
-
-    /**
-     * Get PublishingDate
-     *
-     * @return array
-     */
-    public function getPublishingDate()
-    {
-        return $this->PublishingDate;
-    }
-
-    /**
-     * Get SalesRights
-     *
-     * @return array
-     */
-    public function getSalesRights()
-    {
-        return $this->SalesRights;
-    }
-
-    /**
-     * Get ROWSalesRightsType
-     *
-     * @return CodeList
-     */
-    public function getROWSalesRightsType()
-    {
-        return $this->ROWSalesRightsType;
-    }
-
-    /**
-     * Get Imprint
-     *
-     * @return Imprint
-     */
-    public function getImprint()
+    public function getImprint(): array
     {
         return $this->Imprint;
     }
 
-    /**
-     * Remove new PublishingDate
-     *
-     * @param PublishingDate $PublishingDate
-     * @return void
-     */
-    public function removePublishingDate(PublishingDate $PublishingDate)
+    public function removeImprint(Imprint $imprint): static
     {
+        $this->Imprint = array_values(array_filter(
+            $this->Imprint,
+            static fn ($item): bool => $item !== $imprint,
+        ));
+
+        return $this;
     }
 
-    /**
-     * Remove SalesRights
-     *
-     * @param SalesRights $SalesRights
-     * @return void
-     */
-    public function removeSalesRight(SalesRights $SalesRights)
+    public function addPublisher(Publisher $publisher): static
     {
+        $this->Publisher[] = $publisher;
+
+        return $this;
     }
 
+    public function getPublisher(): array
+    {
+        return $this->Publisher;
+    }
+
+    public function removePublisher(Publisher $publisher): static
+    {
+        $this->Publisher = array_values(array_filter(
+            $this->Publisher,
+            static fn ($item): bool => $item !== $publisher,
+        ));
+
+        return $this;
+    }
+
+    public function addCityOfPublication(string $cityOfPublication): static
+    {
+        $this->CityOfPublication[] = $cityOfPublication;
+
+        return $this;
+    }
+
+    public function getCityOfPublication(): array
+    {
+        return $this->CityOfPublication;
+    }
+
+    public function removeCityOfPublication(string $cityOfPublication): static
+    {
+        $this->CityOfPublication = array_values(array_filter(
+            $this->CityOfPublication,
+            static fn ($item): bool => $item !== $cityOfPublication,
+        ));
+
+        return $this;
+    }
+
+    public function setCountryOfPublication(CodeList91 $countryOfPublication): static
+    {
+        $this->CountryOfPublication = $countryOfPublication;
+
+        return $this;
+    }
+
+    public function getCountryOfPublication(): ?CodeList91
+    {
+        return $this->CountryOfPublication;
+    }
+
+    public function addProductContact(ProductContact $productContact): static
+    {
+        $this->ProductContact[] = $productContact;
+
+        return $this;
+    }
+
+    public function getProductContact(): array
+    {
+        return $this->ProductContact;
+    }
+
+    public function removeProductContact(ProductContact $productContact): static
+    {
+        $this->ProductContact = array_values(array_filter(
+            $this->ProductContact,
+            static fn ($item): bool => $item !== $productContact,
+        ));
+
+        return $this;
+    }
+
+    public function setPublishingStatus(CodeList64 $publishingStatus): static
+    {
+        $this->PublishingStatus = $publishingStatus;
+
+        return $this;
+    }
+
+    public function getPublishingStatus(): ?CodeList64
+    {
+        return $this->PublishingStatus;
+    }
+
+    public function addPublishingStatusNote(Text $publishingStatusNote): static
+    {
+        $this->PublishingStatusNote[] = $publishingStatusNote;
+
+        return $this;
+    }
+
+    public function getPublishingStatusNote(): array
+    {
+        return $this->PublishingStatusNote;
+    }
+
+    public function removePublishingStatusNote(Text $publishingStatusNote): static
+    {
+        $this->PublishingStatusNote = array_values(array_filter(
+            $this->PublishingStatusNote,
+            static fn ($item): bool => $item !== $publishingStatusNote,
+        ));
+
+        return $this;
+    }
+
+    public function addPublishingDate(PublishingDate $publishingDate): static
+    {
+        $this->PublishingDate[] = $publishingDate;
+
+        return $this;
+    }
+
+    public function getPublishingDate(): array
+    {
+        return $this->PublishingDate;
+    }
+
+    public function removePublishingDate(PublishingDate $publishingDate): static
+    {
+        $this->PublishingDate = array_values(array_filter(
+            $this->PublishingDate,
+            static fn ($item): bool => $item !== $publishingDate,
+        ));
+
+        return $this;
+    }
+
+    public function setLatestReprintNumber(int $latestReprintNumber): static
+    {
+        $this->LatestReprintNumber = $latestReprintNumber;
+
+        return $this;
+    }
+
+    public function getLatestReprintNumber(): ?int
+    {
+        return $this->LatestReprintNumber;
+    }
+
+    public function addCopyrightStatement(CopyrightStatement $copyrightStatement): static
+    {
+        $this->CopyrightStatement[] = $copyrightStatement;
+
+        return $this;
+    }
+
+    public function getCopyrightStatement(): array
+    {
+        return $this->CopyrightStatement;
+    }
+
+    public function removeCopyrightStatement(CopyrightStatement $copyrightStatement): static
+    {
+        $this->CopyrightStatement = array_values(array_filter(
+            $this->CopyrightStatement,
+            static fn ($item): bool => $item !== $copyrightStatement,
+        ));
+
+        return $this;
+    }
+
+    public function addCopyrightStatementText(Text $copyrightStatementText): static
+    {
+        $this->CopyrightStatementText[] = $copyrightStatementText;
+
+        return $this;
+    }
+
+    public function getCopyrightStatementText(): array
+    {
+        return $this->CopyrightStatementText;
+    }
+
+    public function removeCopyrightStatementText(Text $copyrightStatementText): static
+    {
+        $this->CopyrightStatementText = array_values(array_filter(
+            $this->CopyrightStatementText,
+            static fn ($item): bool => $item !== $copyrightStatementText,
+        ));
+
+        return $this;
+    }
+
+    public function addSalesRights(SalesRights $salesRights): static
+    {
+        $this->SalesRights[] = $salesRights;
+
+        return $this;
+    }
+
+    public function getSalesRights(): array
+    {
+        return $this->SalesRights;
+    }
+
+    public function removeSalesRights(SalesRights $salesRights): static
+    {
+        $this->SalesRights = array_values(array_filter(
+            $this->SalesRights,
+            static fn ($item): bool => $item !== $salesRights,
+        ));
+
+        return $this;
+    }
+
+    public function setROWSalesRightsType(CodeList46 $rOWSalesRightsType): static
+    {
+        $this->ROWSalesRightsType = $rOWSalesRightsType;
+
+        return $this;
+    }
+
+    public function getROWSalesRightsType(): ?CodeList46
+    {
+        return $this->ROWSalesRightsType;
+    }
 }

@@ -1,66 +1,52 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList44;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList44;
 
 class PublisherIdentifier
 {
+    private ?CodeList44 $PublisherIDType = null;
 
-    /**
-     * PublisherIDType
-     *
-     * @var CodeList
-     */
-    protected $PublisherIDType;
+    private ?string $IDTypeName = null;
 
-    /**
-     * IDValue
-     *
-     * @var string
-     */
-    protected $IDValue;
+    private ?string $IDValue = null;
 
-    /**
-     * Set PublisherIDType
-     *
-     * @param CodeList44 $PublisherIDType
-     * @return void
-     */
-    public function setPublisherIDType(CodeList44 $PublisherIDType)
+    public function setPublisherIDType(CodeList44 $publisherIDType): static
     {
-        $this->PublisherIDType = $PublisherIDType;
+        $this->PublisherIDType = $publisherIDType;
+
+        return $this;
     }
 
-    /**
-     * Set IDValue
-     *
-     * @param string $IDValue
-     * @return void
-     */
-    public function setIDValue(string $IDValue)
-    {
-        $this->IDValue = $IDValue;
-    }
-
-    /**
-     * Get PublisherIDType
-     *
-     * @return CodeList
-     */
-    public function getPublisherIDType()
+    public function getPublisherIDType(): ?CodeList44
     {
         return $this->PublisherIDType;
     }
 
-    /**
-     * Get IDValue
-     *
-     * @return string
-     */
-    public function getIDValue()
+    public function setIDTypeName(string $iDTypeName): static
     {
-        $this->IDValue = $IDValue;
+        $this->IDTypeName = $iDTypeName;
+
+        return $this;
     }
 
+    public function getIDTypeName(): ?string
+    {
+        return $this->IDTypeName;
+    }
+
+    public function setIDValue(string $iDValue): static
+    {
+        $this->IDValue = $iDValue;
+
+        return $this;
+    }
+
+    public function getIDValue(): ?string
+    {
+        return $this->IDValue;
+    }
 }

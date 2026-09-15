@@ -1,67 +1,39 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList155;
-use Ribal\Onix\Date;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList155;
+use MirayS\Onix\Date;
 
 class ContentDate
 {
+    private ?CodeList155 $ContentDateRole = null;
 
-    /**
-     * ContentDateRole
-     *
-     * @var CodeList
-     */
-    protected $ContentDateRole;
+    private ?Date $Date = null;
 
-    /**
-     * Date
-     *
-     * @var \DateTime
-     */
-    protected $Date;
-
-    /**
-     * Set ContentDateRole
-     *
-     * @param CodeList155 $ContentDateRole
-     * @return void
-     */
-    public function setContentDateRole(CodeList155 $ContentDateRole)
+    public function setContentDateRole(CodeList155 $contentDateRole): static
     {
-        $this->ContentDateRole = $ContentDateRole;
+        $this->ContentDateRole = $contentDateRole;
+
+        return $this;
     }
 
-    /**
-     * Set Date
-     *
-     * @param string $Date
-     * @return void
-     */
-    public function setDate(Date $Date)
-    {
-        $this->Date = $Date;
-    }
-
-    /**
-     * Get ContentDateRole
-     *
-     * @return CodeList
-     */
-    public function getContentDateRole()
+    public function getContentDateRole(): ?CodeList155
     {
         return $this->ContentDateRole;
     }
 
-    /**
-     * Get Date
-     *
-     * @return Date
-     */
-    public function getDate()
+    public function setDate(Date $date): static
+    {
+        $this->Date = $date;
+
+        return $this;
+    }
+
+    public function getDate(): ?Date
     {
         return $this->Date;
     }
-
 }

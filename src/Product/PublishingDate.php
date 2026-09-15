@@ -1,67 +1,39 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList163;
-use Ribal\Onix\Date;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList163;
+use MirayS\Onix\Date;
 
 class PublishingDate
 {
+    private ?CodeList163 $PublishingDateRole = null;
 
-    /**
-     * PublishingDateRole
-     *
-     * @var CodeList
-     */
-    protected $PublishingDateRole;
+    private ?Date $Date = null;
 
-    /**
-     * Date
-     *
-     * @var Date
-     */
-    protected $Date;
-
-    /**
-     * Set PublishingDateRole
-     *
-     * @param CodeList163 $PublishingDateRole
-     * @return void
-     */
-    public function setPublishingDateRole(CodeList163 $PublishingDateRole)
+    public function setPublishingDateRole(CodeList163 $publishingDateRole): static
     {
-        $this->PublishingDateRole = $PublishingDateRole;
+        $this->PublishingDateRole = $publishingDateRole;
+
+        return $this;
     }
 
-    /**
-     * Set Date
-     *
-     * @param Date $Date
-     * @return void
-     */
-    public function setDate(Date $Date)
-    {
-        $this->Date = $Date;
-    }
-
-    /**
-     * Get PublishingDateRole
-     *
-     * @return CodeList
-     */
-    public function getPublishingDateRole()
+    public function getPublishingDateRole(): ?CodeList163
     {
         return $this->PublishingDateRole;
     }
 
-    /**
-     * Get Date
-     *
-     * @return Date
-     */
-    public function getDate()
+    public function setDate(Date $date): static
+    {
+        $this->Date = $date;
+
+        return $this;
+    }
+
+    public function getDate(): ?Date
     {
         return $this->Date;
     }
-
 }

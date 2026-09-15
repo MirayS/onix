@@ -1,76 +1,48 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList164;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList164;
 
 class RelatedWork
 {
+    private ?CodeList164 $WorkRelationCode = null;
 
-    /**
-     * WorkRelationCode
-     *
-     * @var CodeList
-     */
-    protected $WorkRelationCode;
+    private array $WorkIdentifier = [];
 
-    /**
-     * Array of WorkIdentifiers
-     *
-     * @var arrayWorkIdentifier
-     */
-    protected $WorkIdentifier = [];
-
-    /**
-     * Set WorkRelationCode
-     *
-     * @param CodeList164 $WorkRelationCode
-     * @return void
-     */
-    public function setWorkRelationCode(CodeList164 $WorkRelationCode)
+    public function setWorkRelationCode(CodeList164 $workRelationCode): static
     {
-        $this->WorkRelationCode = $WorkRelationCode;
+        $this->WorkRelationCode = $workRelationCode;
+
+        return $this;
     }
 
-    /**
-     * Add a new WorkIdentifier
-     *
-     * @param WorkIdentifier $WorkIdentifier
-     * @return void
-     */
-    public function addWorkIdentifier(WorkIdentifier $WorkIdentifier)
-    {
-        $this->WorkIdentifier[] = $WorkIdentifier;
-    }
-
-    /**
-     * Get WorkRelationCode
-     *
-     * @return CodeList
-     */
-    public function getWorkRelationCode()
+    public function getWorkRelationCode(): ?CodeList164
     {
         return $this->WorkRelationCode;
     }
 
-    /**
-     * WorkIdentifier
-     *
-     * @return array
-     */
-    public function getWorkIdentifier()
+    public function addWorkIdentifier(WorkIdentifier $workIdentifier): static
+    {
+        $this->WorkIdentifier[] = $workIdentifier;
+
+        return $this;
+    }
+
+    public function getWorkIdentifier(): array
     {
         return $this->WorkIdentifier;
     }
 
-     /**
-     * Remove WorkIdentifier
-     *
-     * @param WorkIdentifier $WorkIdentifier
-     * @return void
-     */
-    public function removeWorkIdentifier(WorkIdentifier $WorkIdentifier)
+    public function removeWorkIdentifier(WorkIdentifier $workIdentifier): static
     {
-    }
+        $this->WorkIdentifier = array_values(array_filter(
+            $this->WorkIdentifier,
+            static fn ($item): bool => $item !== $workIdentifier,
+        ));
 
+        return $this;
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ribal\Onix\CodeList;
+namespace MirayS\Onix\CodeList;
 
 interface CodeListInterface
 {

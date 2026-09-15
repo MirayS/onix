@@ -1,116 +1,89 @@
 <?php
 
-namespace Ribal\Onix;
+declare(strict_types=1);
 
-use Ribal\Onix\Exception\InvalidTextFormatException;
+namespace MirayS\Onix;
 
-class Text
+final class Text
 {
-
     public const TYPE_HTML = '02';
     public const TYPE_XML = '03';
     public const TYPE_XHTML = '05';
     public const TYPE_DEFAULT = '06';
     public const TYPE_ASCII = '07';
 
-    /**
-     * The default text format
-     *
-     * @var string
-     */
-    protected $textFormat = self::TYPE_DEFAULT;
+    private const MARKUP_TYPES = [self::TYPE_HTML, self::TYPE_XML, self::TYPE_XHTML];
 
-    /**
-     * The actual content
-     *
-     * @var string
-     */
-    protected $content = "";
-
-    /**
-     * Content language
-     *
-     * @var null|string
-     */
-    protected $language = null;
-
-    /**
-     * Constructor
-     *
-     * @param string $content
-     * @param string $format
-     * @param string $language
-     */
-    public function __construct(string $content, string $format = self::TYPE_DEFAULT, $language = null)
-    {
-
-        if (!in_array($format, [self::TYPE_ASCII, self::TYPE_DEFAULT, self::TYPE_HTML, self::TYPE_XHTML, self::TYPE_XML])) {
-            throw new InvalidTextFormatException(sprintf('Unknown text format: %s. See ONIX CodeList 34 for more information.', $format));
-        }
-
-
-        if ($format !== self::TYPE_HTML && $format !== self::TYPE_XML && $format !== self::TYPE_XHTML && $format !== self::TYPE_DEFAULT && $format !== self::TYPE_ASCII) {
-
-        }
-
-
-        $this->content = $content;
-        $this->textFormat = $format;
-        $this->language = $language;
+    public function __construct(
+        private readonly string $content,
+        private readonly string $textFormat = self::TYPE_DEFAULT,
+        private readonly ?string $language = null,
+    ) {
     }
 
-    /**
-     * Get plain text from (X)HTML
-     *
-     * @return string
-     */
-    public function toPlain()
+    public function getContent(): string
     {
+        return $this->content;
+    }
 
-		if ($this->textFormat == self::TYPE_DEFAULT || $this->textFormat == self::TYPE_ASCII) {
-    		return $this->content;
-    	}
+    public function getTextFormat(): string
+    {
+        return $this->textFormat;
+    }
 
-        $content = preg_replace('/<br\s?/?>/', "\n", $this->content);
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function isMarkup(): bool
+    {
+        return in_array($this->textFormat, self::MARKUP_TYPES, true);
+    }
+
+    public function isEmpty(): bool
+    {
+        return trim($this->toPlain()) === '';
+    }
+
+    public function toPlain(): string
+    {
+        if (!$this->isMarkup()) {
+            return $this->content;
+        }
+
+        $content = preg_replace('#<br\s*/?>#i', "\n", $this->content) ?? $this->content;
+        $content = preg_replace('#</(p|div|li|tr|h[1-6])\s*>#i', "\n\n", $content) ?? $content;
         $content = strip_tags($content);
+        $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $content = preg_replace('/[ \t]+/', ' ', $content) ?? $content;
+        $content = preg_replace('/\n{3,}/', "\n\n", $content) ?? $content;
 
-        return $content;
-
-    }
-    
-    /**
-     * Output plain text as HTML by translating simple line
-     * breaks to HTML paragraphs and encode special HTML
-     * characters.
-     *
-     * @return string
-     */
-    public function toHtml()
-    {
-    	if ($this->textFormat == self::TYPE_HTML || $this->textFormat == self::TYPE_XHTML) {
-    		return $this->content;
-    	}
-    
-    	$content = htmlspecialchars($this->content);
-    	
-		$content = '<p>' . preg_replace(
-			['/\n{2,}/m', '/\n/m'],
-			['</p><p>', '<br>'], 
-			trim($content)
-		) . '</p>';
-		
-		return $content;
-		
-    }    
-    
-    /**
-     * Output the current content
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-    	return $this->content;
+        return trim($content);
     }
 
+    public function toHtml(): string
+    {
+        if ($this->isMarkup()) {
+            return $this->content;
+        }
+
+        $content = htmlspecialchars($this->content, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $content = trim($content);
+
+        if ($content === '') {
+            return '';
+        }
+
+        return '<p>' . preg_replace(
+            ['/\R{2,}/', '/\R/'],
+            ['</p><p>', '<br>'],
+            $content
+        ) . '</p>';
+    }
+
+    public function __toString(): string
+    {
+        return $this->content;
+    }
 }

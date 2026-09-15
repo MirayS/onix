@@ -1,165 +1,298 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList153;
-use Ribal\Onix\CodeList\CodeList154;
-use Ribal\Onix\Text;
-use Ribal\Onix\TextNode;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList153;
+use MirayS\Onix\CodeList\CodeList154;
+use MirayS\Onix\Text;
 
 class TextContent
 {
+    private ?int $SequenceNumber = null;
 
-    private const CODE_MAINDESCRIPTION = '03';
+    private ?CodeList153 $TextType = null;
 
-    /**
-     * Type of the Text
-     *
-     * @var CodeList
-     */
-    protected $TextType;
+    private array $ContentAudience = [];
 
-    /**
-     * ContentAudience
-     *
-     * @var CodeList
-     */
-    protected $ContentAudience;
+    private ?Territory $Territory = null;
 
-    /**
-     * SourceTitle
-     *
-     * @var string
-     */
-    protected $SourceTitle;
+    private array $Text = [];
 
-    /**
-     * TextAuthor
-     *
-     * @var string
-     */
-    protected $TextAuthor;
+    private ?ReviewRating $ReviewRating = null;
 
-    /**
-     * Text
-     *
-     * @var string
-     */
-    protected $Text;
+    private array $TextAuthor = [];
 
-    /**
-     * Set Text Type
-     *
-     * @param string $TextType
-     * @return void
-     */
-    public function setTextType(CodeList153 $TextType)
+    private ?string $TextSourceCorporate = null;
+
+    private array $TextSourceDescription = [];
+
+    private array $TextSource = [];
+
+    private array $SourceTitle = [];
+
+    private array $TextSourceLink = [];
+
+    private array $EpubUsageConstraint = [];
+
+    private array $ContentDate = [];
+
+    public function setSequenceNumber(int $sequenceNumber): static
     {
-        $this->TextType = $TextType;
+        $this->SequenceNumber = $sequenceNumber;
+
+        return $this;
     }
 
-    /**
-     * Set ContentAudience
-     *
-     * @param string $ContentAudience
-     * @return void
-     */
-    public function setContentAudience(CodeList154 $ContentAudience)
+    public function getSequenceNumber(): ?int
     {
-        $this->ContentAudience = $ContentAudience;
+        return $this->SequenceNumber;
     }
 
-    /**
-     * Set SourceTitle
-     *
-     * @param string $SourceTitle
-     * @return void
-     */
-    public function setSourceTitle(string $SourceTitle)
+    public function setTextType(CodeList153 $textType): static
     {
-        $this->SourceTitle = $SourceTitle;
+        $this->TextType = $textType;
+
+        return $this;
     }
 
-    /**
-     * Set TextAuthor
-     *
-     * @param string $TextAuthor
-     * @return void
-     */
-    public function setTextAuthor(string $TextAuthor)
-    {
-        $this->TextAuthor = $TextAuthor;
-    }
-
-    /**
-     * Get TextAuthor
-     *
-     * @return string $TextAuthor
-     */
-    public function getTextAuthor()
-    {
-        return $this->TextAuthor;
-    }
-
-    /**
-     * Set Text
-     *
-     * @param Text $Text
-     * @return void
-     */
-    public function setText(Text $Text)
-    {
-        $this->Text = $Text;
-    }
-
-    /**
-     * Get TextType
-     *
-     * @return CodeList
-     */
-    public function getTextType()
+    public function getTextType(): ?CodeList153
     {
         return $this->TextType;
     }
 
-    /**
-     * Get ContentAudience
-     *
-     * @return CodeList
-     */
-    public function getContentAudience()
+    public function addContentAudience(CodeList154 $contentAudience): static
+    {
+        $this->ContentAudience[] = $contentAudience;
+
+        return $this;
+    }
+
+    public function getContentAudience(): array
     {
         return $this->ContentAudience;
     }
 
-    /**
-     * Get SourceTitle
-     *
-     * @return void
-     */
-    public function getSourceTitle()
+    public function removeContentAudience(CodeList154 $contentAudience): static
+    {
+        $this->ContentAudience = array_values(array_filter(
+            $this->ContentAudience,
+            static fn ($item): bool => $item !== $contentAudience,
+        ));
+
+        return $this;
+    }
+
+    public function setTerritory(Territory $territory): static
+    {
+        $this->Territory = $territory;
+
+        return $this;
+    }
+
+    public function getTerritory(): ?Territory
+    {
+        return $this->Territory;
+    }
+
+    public function addText(Text $text): static
+    {
+        $this->Text[] = $text;
+
+        return $this;
+    }
+
+    public function getText(): array
+    {
+        return $this->Text;
+    }
+
+    public function removeText(Text $text): static
+    {
+        $this->Text = array_values(array_filter(
+            $this->Text,
+            static fn ($item): bool => $item !== $text,
+        ));
+
+        return $this;
+    }
+
+    public function setReviewRating(ReviewRating $reviewRating): static
+    {
+        $this->ReviewRating = $reviewRating;
+
+        return $this;
+    }
+
+    public function getReviewRating(): ?ReviewRating
+    {
+        return $this->ReviewRating;
+    }
+
+    public function addTextAuthor(string $textAuthor): static
+    {
+        $this->TextAuthor[] = $textAuthor;
+
+        return $this;
+    }
+
+    public function getTextAuthor(): array
+    {
+        return $this->TextAuthor;
+    }
+
+    public function removeTextAuthor(string $textAuthor): static
+    {
+        $this->TextAuthor = array_values(array_filter(
+            $this->TextAuthor,
+            static fn ($item): bool => $item !== $textAuthor,
+        ));
+
+        return $this;
+    }
+
+    public function setTextSourceCorporate(string $textSourceCorporate): static
+    {
+        $this->TextSourceCorporate = $textSourceCorporate;
+
+        return $this;
+    }
+
+    public function getTextSourceCorporate(): ?string
+    {
+        return $this->TextSourceCorporate;
+    }
+
+    public function addTextSourceDescription(Text $textSourceDescription): static
+    {
+        $this->TextSourceDescription[] = $textSourceDescription;
+
+        return $this;
+    }
+
+    public function getTextSourceDescription(): array
+    {
+        return $this->TextSourceDescription;
+    }
+
+    public function removeTextSourceDescription(Text $textSourceDescription): static
+    {
+        $this->TextSourceDescription = array_values(array_filter(
+            $this->TextSourceDescription,
+            static fn ($item): bool => $item !== $textSourceDescription,
+        ));
+
+        return $this;
+    }
+
+    public function addTextSource(TextSource $textSource): static
+    {
+        $this->TextSource[] = $textSource;
+
+        return $this;
+    }
+
+    public function getTextSource(): array
+    {
+        return $this->TextSource;
+    }
+
+    public function removeTextSource(TextSource $textSource): static
+    {
+        $this->TextSource = array_values(array_filter(
+            $this->TextSource,
+            static fn ($item): bool => $item !== $textSource,
+        ));
+
+        return $this;
+    }
+
+    public function addSourceTitle(string $sourceTitle): static
+    {
+        $this->SourceTitle[] = $sourceTitle;
+
+        return $this;
+    }
+
+    public function getSourceTitle(): array
     {
         return $this->SourceTitle;
     }
-    
-    /**
-     * Get the actual Text
-     *
-     * @return Text
-     */
-    public function getText()
+
+    public function removeSourceTitle(string $sourceTitle): static
     {
-    	return $this->Text;
-    }
-    
-    /**
-     * Determines if the current TextContent is the product description
-     *
-     * @return boolean
-     */
-    public function isDescription()
-    {
-    	return $this->getTextType()->getCode() === self::CODE_MAINDESCRIPTION;
+        $this->SourceTitle = array_values(array_filter(
+            $this->SourceTitle,
+            static fn ($item): bool => $item !== $sourceTitle,
+        ));
+
+        return $this;
     }
 
+    public function addTextSourceLink(string $textSourceLink): static
+    {
+        $this->TextSourceLink[] = $textSourceLink;
+
+        return $this;
+    }
+
+    public function getTextSourceLink(): array
+    {
+        return $this->TextSourceLink;
+    }
+
+    public function removeTextSourceLink(string $textSourceLink): static
+    {
+        $this->TextSourceLink = array_values(array_filter(
+            $this->TextSourceLink,
+            static fn ($item): bool => $item !== $textSourceLink,
+        ));
+
+        return $this;
+    }
+
+    public function addEpubUsageConstraint(EpubUsageConstraint $epubUsageConstraint): static
+    {
+        $this->EpubUsageConstraint[] = $epubUsageConstraint;
+
+        return $this;
+    }
+
+    public function getEpubUsageConstraint(): array
+    {
+        return $this->EpubUsageConstraint;
+    }
+
+    public function removeEpubUsageConstraint(EpubUsageConstraint $epubUsageConstraint): static
+    {
+        $this->EpubUsageConstraint = array_values(array_filter(
+            $this->EpubUsageConstraint,
+            static fn ($item): bool => $item !== $epubUsageConstraint,
+        ));
+
+        return $this;
+    }
+
+    public function addContentDate(ContentDate $contentDate): static
+    {
+        $this->ContentDate[] = $contentDate;
+
+        return $this;
+    }
+
+    public function getContentDate(): array
+    {
+        return $this->ContentDate;
+    }
+
+    public function removeContentDate(ContentDate $contentDate): static
+    {
+        $this->ContentDate = array_values(array_filter(
+            $this->ContentDate,
+            static fn ($item): bool => $item !== $contentDate,
+        ));
+
+        return $this;
+    }
 }

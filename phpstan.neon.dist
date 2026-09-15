@@ -1,0 +1,13 @@
+parameters:
+    level: 5
+    paths:
+        - src
+        - tools
+    excludePaths:
+        analyse:
+            - src/CodeList/CodeList*.php
+            - src/Product
+            - src/Message
+            - src/Schema/ElementSchema.php
+            - src/Tag/TagMap.php
+            - src/Support

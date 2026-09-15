@@ -1,149 +1,109 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList27;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList27;
 
 class Subject
 {
+    private ?bool $MainSubject = null;
 
-    /**
-     * MainSubject
-     *
-     * @var boolean
-     */
-    protected $MainSubject = false;
+    private ?CodeList27 $SubjectSchemeIdentifier = null;
 
-    /**
-     * SubjectSchemeIdentifier
-     *
-     * @var CodeList
-     */
-    protected $SubjectSchemeIdentifier;
+    private ?string $SubjectSchemeName = null;
 
-    /**
-     * SubjectSchemeVersion
-     *
-     * @var string
-     */
-    protected $SubjectSchemeVersion;
+    private ?string $SubjectSchemeVersion = null;
 
-    /**
-     * SubjectCode
-     *
-     * @var string
-     */
-    protected $SubjectCode;
+    private ?string $SubjectCode = null;
 
-    /**
-     * SubjectHeadingText
-     *
-     * @var string
-     */
-    protected $SubjectHeadingText;
+    private array $SubjectHeadingText = [];
 
-    /**
-     * Set as MainSubject
-     *
-     * @return void
-     */
-    public function setMainSubject(string $MainSubject)
+    public function setMainSubject(bool $mainSubject): static
     {
-        $this->MainSubject = true;
+        $this->MainSubject = $mainSubject;
+
+        return $this;
     }
 
-    /**
-     * Set SubjectSchemeIdentifier
-     *
-     * @param string $SubjectSchemeIdentifier
-     * @return void
-     */
-    public function setSubjectSchemeIdentifier(CodeList27 $SubjectSchemeIdentifier)
-    {
-        $this->SubjectSchemeIdentifier = $SubjectSchemeIdentifier;
-    }
-
-    /**
-     * Set SubjectSchemeVersion
-     *
-     * @param string $SubjectSchemeVersion
-     * @return void
-     */
-    public function setSubjectSchemeVersion(string $SubjectSchemeVersion)
-    {
-        $this->SubjectSchemeVersion = $SubjectSchemeVersion;
-    }
-
-    /**
-     * Set SubjectCode
-     *
-     * @param string $SubjectCode
-     * @return void
-     */
-    public function setSubjectCode(string $SubjectCode)
-    {
-        $this->SubjectCode = $SubjectCode;
-    }
-
-    /**
-     * Set SubjectHeadingText
-     *
-     * @param string $SubjectHeadingText
-     * @return void
-     */
-    public function setSubjectHeadingText(string $SubjectHeadingText)
-    {
-        $this->SubjectHeadingText = $SubjectHeadingText;
-    }
-
-    /**
-     * Get MainSubject
-     *
-     * @return boolean
-     */
-    public function getMainSubject()
+    public function getMainSubject(): ?bool
     {
         return $this->MainSubject;
     }
 
-    /**
-     * Get SubjectSchemeIdentifier
-     *
-     * @return CodeList
-     */
-    public function getSubjectSchemeIdentifier()
+    public function hasMainSubject(): bool
+    {
+        return $this->MainSubject === true;
+    }
+
+    public function setSubjectSchemeIdentifier(CodeList27 $subjectSchemeIdentifier): static
+    {
+        $this->SubjectSchemeIdentifier = $subjectSchemeIdentifier;
+
+        return $this;
+    }
+
+    public function getSubjectSchemeIdentifier(): ?CodeList27
     {
         return $this->SubjectSchemeIdentifier;
     }
 
-    /**
-     * Get SubjectSchemeVersion
-     *
-     * @return string
-     */
-    public function getSubjectSchemeVersion()
+    public function setSubjectSchemeName(string $subjectSchemeName): static
+    {
+        $this->SubjectSchemeName = $subjectSchemeName;
+
+        return $this;
+    }
+
+    public function getSubjectSchemeName(): ?string
+    {
+        return $this->SubjectSchemeName;
+    }
+
+    public function setSubjectSchemeVersion(string $subjectSchemeVersion): static
+    {
+        $this->SubjectSchemeVersion = $subjectSchemeVersion;
+
+        return $this;
+    }
+
+    public function getSubjectSchemeVersion(): ?string
     {
         return $this->SubjectSchemeVersion;
     }
 
-    /**
-     * Get SubjectCode
-     *
-     * @return string
-     */
-    public function getSubjectCode()
+    public function setSubjectCode(string $subjectCode): static
+    {
+        $this->SubjectCode = $subjectCode;
+
+        return $this;
+    }
+
+    public function getSubjectCode(): ?string
     {
         return $this->SubjectCode;
     }
 
-    /**
-     * Get SubjectHeadingText
-     *
-     * @return string
-     */
-    public function getSubjectHeadingText()
+    public function addSubjectHeadingText(string $subjectHeadingText): static
+    {
+        $this->SubjectHeadingText[] = $subjectHeadingText;
+
+        return $this;
+    }
+
+    public function getSubjectHeadingText(): array
     {
         return $this->SubjectHeadingText;
     }
 
+    public function removeSubjectHeadingText(string $subjectHeadingText): static
+    {
+        $this->SubjectHeadingText = array_values(array_filter(
+            $this->SubjectHeadingText,
+            static fn ($item): bool => $item !== $subjectHeadingText,
+        ));
+
+        return $this;
+    }
 }

@@ -1,67 +1,39 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList163;
-use Ribal\Onix\Date;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList163;
+use MirayS\Onix\Date;
 
 class MarketDate
 {
+    private ?CodeList163 $MarketDateRole = null;
 
-    /**
-     * MarketDateRole
-     *
-     * @var CodeList
-     */
-    protected $MarketDateRole;
+    private ?Date $Date = null;
 
-    /**
-     * Date
-     *
-     * @var \Ribal\Onix
-     */
-    protected $Date;
-
-    /**
-     * Set MarketDateRole
-     *
-     * @param CodeList163 $MarketDateRole
-     * @return void
-     */
-    public function setMarketDateRole(CodeList163 $MarketDateRole)
+    public function setMarketDateRole(CodeList163 $marketDateRole): static
     {
-        $this->MarketDateRole = $MarketDateRole;
+        $this->MarketDateRole = $marketDateRole;
+
+        return $this;
     }
 
-    /**
-     * Set Date
-     *
-     * @param Date $Date
-     * @return void
-     */
-    public function setDate(Date $Date)
-    {
-        $this->Date = $Date;
-    }
-
-    /**
-     * Get MarketDateRole
-     *
-     * @return CodeList
-     */
-    public function getMarketDateRole()
+    public function getMarketDateRole(): ?CodeList163
     {
         return $this->MarketDateRole;
     }
 
-    /**
-     * Get Date
-     *
-     * @return Date
-     */
-    public function getDate()
+    public function setDate(Date $date): static
+    {
+        $this->Date = $date;
+
+        return $this;
+    }
+
+    public function getDate(): ?Date
     {
         return $this->Date;
     }
-
 }

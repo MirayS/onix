@@ -1,96 +1,62 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList220;
-use Ribal\Onix\CodeList\CodeList79;
-use Ribal\Onix\CodeList\CodeList98;
-use Ribal\Onix\CodeList\CodeList220;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList79;
 
 class ProductFormFeature
 {
+    private ?CodeList79 $ProductFormFeatureType = null;
 
-    /**
-     * ProductFormFeatureType
-     *
-     * @var CodeList
-     */
-    protected $ProductFormFeatureType;
+    private ?string $ProductFormFeatureValue = null;
 
-    /**
-     * ProductFormFeatureValue
-     *
-     * @var CodeList
-     */
-    protected $ProductFormFeatureValue;
+    private array $ProductFormFeatureDescription = [];
 
-    /**
-     * ProductFormFeatureDescription
-     *
-     * @var string
-     */
-    protected $ProductFormFeatureDescription;
-
-    /**
-     * Set ProductFormFeatureType
-     *
-     * @param CodeList79 $ProductFormFeatureType
-     * @return void
-     */
-    public function setProductFormFeatureType(CodeList79 $ProductFormFeatureType)
+    public function setProductFormFeatureType(CodeList79 $productFormFeatureType): static
     {
-        $this->ProductFormFeatureType = $ProductFormFeatureType;
+        $this->ProductFormFeatureType = $productFormFeatureType;
+
+        return $this;
     }
 
-    /**
-     * Set ProductFormFeatureValue
-     *
-     * @param CodeList220 | CodeList98 $ProductFormFeatureValue
-     * @return void
-     */
-    public function setProductFormFeatureValue(CodeList220 | CodeList98 $ProductFormFeatureValue)
-    {
-        $this->ProductFormFeatureValue = $ProductFormFeatureValue;
-    }
-
-    /**
-     * Set ProductFormFeatureDescription
-     *
-     * @param string $description
-     * @return void
-     */
-    public function setProductFormFeatureDescription(string $description)
-    {
-        $this->ProductFormFeatureDescription = $description;
-    }
-
-    /**
-     * Get ProductFormFeatureType
-     *
-     * @return CodeList
-     */
-    public function getProductFormFeatureType()
+    public function getProductFormFeatureType(): ?CodeList79
     {
         return $this->ProductFormFeatureType;
     }
 
-    /**
-     * Get ProductFormFeatureValue
-     *
-     * @return CodeList
-     */
-    public function getProductFormFeatureValue()
+    public function setProductFormFeatureValue(string $productFormFeatureValue): static
+    {
+        $this->ProductFormFeatureValue = $productFormFeatureValue;
+
+        return $this;
+    }
+
+    public function getProductFormFeatureValue(): ?string
     {
         return $this->ProductFormFeatureValue;
     }
 
-    /**
-     * Get ProductFormFeatureDescription
-     *
-     * @return string
-     */
-    public function getProductFormFeatureDescription()
+    public function addProductFormFeatureDescription(string $productFormFeatureDescription): static
+    {
+        $this->ProductFormFeatureDescription[] = $productFormFeatureDescription;
+
+        return $this;
+    }
+
+    public function getProductFormFeatureDescription(): array
     {
         return $this->ProductFormFeatureDescription;
+    }
+
+    public function removeProductFormFeatureDescription(string $productFormFeatureDescription): static
+    {
+        $this->ProductFormFeatureDescription = array_values(array_filter(
+            $this->ProductFormFeatureDescription,
+            static fn ($item): bool => $item !== $productFormFeatureDescription,
+        ));
+
+        return $this;
     }
 }

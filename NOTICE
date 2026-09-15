@@ -1,0 +1,33 @@
+mirays/onix
+Copyright (c) 2026 Vitali Kuzmich
+
+This Source Code Form is subject to the terms of the Mozilla Public License,
+v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain
+one at https://mozilla.org/MPL/2.0/.
+
+This notice covers every file in this distribution, as permitted by Exhibit A of
+the Mozilla Public License, v. 2.0.
+
+--------------------------------------------------------------------------------
+
+Third-party notices
+
+1. Original work
+
+   This project is a fork of https://github.com/chrisribal/onix-parser, which is
+   licensed under the MIT License, copyright (c) 2020 Chris Ribal and (c) 2022
+   Common Knowledge Ltd. Portions of this Source Code Form derived from that work
+   remain available under the MIT License; a copy is included as LICENSE-MIT.
+
+2. ONIX for Books schemas and code lists
+
+   The object model in src/Product, src/Message, src/Schema and src/Tag, and the
+   code lists in src/CodeList, are generated from the ONIX for Books schemas and
+   code lists published by EDItEUR (https://www.editeur.org/), copyright (c)
+   2000-2026 EDItEUR. Those schemas are made available free of charge under terms
+   (DOI: 10.4400/nwgj) that permit copies derived from them for use that is
+   strictly internal to your own organization, and ask that EDItEUR be notified
+   of any other intended use. EDItEUR is not the author of this software and does
+   not endorse it.
+
+   ONIX is a trademark of EDItEUR.

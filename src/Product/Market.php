@@ -1,36 +1,46 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
+
+namespace MirayS\Onix\Product;
 
 class Market
 {
+    private ?Territory $Territory = null;
 
-    /**
-     * Territory
-     *
-     * @var Territory
-     */
-    protected $Territory;
+    private array $SalesRestriction = [];
 
-    /**
-     * Set Territory
-     *
-     * @param Territory $Territory
-     * @return void
-     */
-    public function setTerritory(Territory $Territory)
+    public function setTerritory(Territory $territory): static
     {
-        $this->Territory = $Territory;
+        $this->Territory = $territory;
+
+        return $this;
     }
 
-    /**
-     * Get Territory
-     *
-     * @return Territory
-     */
-    public function getTerritory()
+    public function getTerritory(): ?Territory
     {
         return $this->Territory;
     }
 
+    public function addSalesRestriction(SalesRestriction $salesRestriction): static
+    {
+        $this->SalesRestriction[] = $salesRestriction;
+
+        return $this;
+    }
+
+    public function getSalesRestriction(): array
+    {
+        return $this->SalesRestriction;
+    }
+
+    public function removeSalesRestriction(SalesRestriction $salesRestriction): static
+    {
+        $this->SalesRestriction = array_values(array_filter(
+            $this->SalesRestriction,
+            static fn ($item): bool => $item !== $salesRestriction,
+        ));
+
+        return $this;
+    }
 }

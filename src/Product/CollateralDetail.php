@@ -1,182 +1,108 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
+
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\Support\CollateralShortcuts;
 
 class CollateralDetail
 {
+    use CollateralShortcuts;
 
-    /**
-     * Array of TextContents
-     *
-     * @var array|TextContent
-     */
-    protected $TextContent = [];
+    private array $TextContent = [];
 
-    /**
-     * Array of CitedContents
-     *
-     * @var array|CitedContent
-     */
-    protected $CitedContent = [];
+    private array $CitedContent = [];
 
-    /**
-     * Array of SupportingResource
-     *
-     * @var array|SupportingResource
-     */
-    protected $SupportingResource = [];
+    private array $SupportingResource = [];
 
-    /**
-     * Add a new TextContent
-     *
-     * @param TextContent $TextContent
-     * @return void
-     */
-    public function addTextContent(TextContent $TextContent)
+    private array $Prize = [];
+
+    public function addTextContent(TextContent $textContent): static
     {
-        $this->TextContent[] = $TextContent;
+        $this->TextContent[] = $textContent;
+
+        return $this;
     }
 
-    /**
-     * Add new CitedContent
-     *
-     * @param CitedContent $CitedContent
-     * @return void
-     */
-    public function addCitedContent(CitedContent $CitedContent)
-    {
-        $this->CitedContent[] = $CitedContent;
-    }
-
-    /**
-     * Add new SupportingResource
-     *
-     * @param SupportingResource $SupportingResource
-     * @return void
-     */
-    public function addSupportingResource(SupportingResource $SupportingResource)
-    {
-        $this->SupportingResource[] = $SupportingResource;
-    }
-
-    /**
-     * Get TextContents
-     *
-     * @return array
-     */
-    public function getTextContent()
+    public function getTextContent(): array
     {
         return $this->TextContent;
     }
-    
-    /**
-     * Get TextContents
-     *
-     * @return array
-     */
-    public function getTextContents()
+
+    public function removeTextContent(TextContent $textContent): static
     {
-    	return $this->TextContent;
+        $this->TextContent = array_values(array_filter(
+            $this->TextContent,
+            static fn ($item): bool => $item !== $textContent,
+        ));
+
+        return $this;
     }
 
-    /**
-     * Get CitedContents
-     *
-     * @return array
-     */
-    public function getCitedContent()
+    public function addCitedContent(CitedContent $citedContent): static
+    {
+        $this->CitedContent[] = $citedContent;
+
+        return $this;
+    }
+
+    public function getCitedContent(): array
     {
         return $this->CitedContent;
     }
 
-    /**
-     * Get SupportingResources
-     *
-     * @return array
-     */
-    public function getSupportingResource()
+    public function removeCitedContent(CitedContent $citedContent): static
+    {
+        $this->CitedContent = array_values(array_filter(
+            $this->CitedContent,
+            static fn ($item): bool => $item !== $citedContent,
+        ));
+
+        return $this;
+    }
+
+    public function addSupportingResource(SupportingResource $supportingResource): static
+    {
+        $this->SupportingResource[] = $supportingResource;
+
+        return $this;
+    }
+
+    public function getSupportingResource(): array
     {
         return $this->SupportingResource;
     }
-    
-    /**
-     * Get all SupportingResources
-     *
-     * @return SupportingResource[]
-     */
-    public function getSupportingResources()
+
+    public function removeSupportingResource(SupportingResource $supportingResource): static
     {
-    	return $this->SupportingResource;
+        $this->SupportingResource = array_values(array_filter(
+            $this->SupportingResource,
+            static fn ($item): bool => $item !== $supportingResource,
+        ));
+
+        return $this;
     }
 
-    /**
-     * Remove TextContent
-     *
-     * @param TextContent $TextContent
-     * @return void
-     */
-    public function removeTextContent(TextContent $TextContent)
+    public function addPrize(Prize $prize): static
     {
+        $this->Prize[] = $prize;
+
+        return $this;
     }
 
-    /**
-     * Remove the CitedContent
-     *
-     * @param CitedContent $CitedContent
-     * @return void
-     */
-    public function removeCitedContent(CitedContent $CitedContent)
+    public function getPrize(): array
     {
+        return $this->Prize;
     }
 
-    /**
-     * Remove a SupportingResource
-     *
-     * @param SupportingResource $SupportingResource
-     * @return void
-     */
-    public function removeSupportingResource(SupportingResource $SupportingResource)
+    public function removePrize(Prize $prize): static
     {
-    }
-    
-    /**
-     * Get the product description text, if set
-     *
-     * @return TextContent|null
-     */
-    public function getDescriptionText()
-    {
-    	foreach ($this->TextContent as $textContent) {
-    		if ($textContent->isDescription()) {
-    			return $textContent;
-    		}
-    	}
-    }
-    
-    /**
-     * Get the front cover resource, if set
-     *
-     * @return SupportingResource
-     */
-	public function getFrontCover()
-	{
-		foreach ($this->SupportingResource as $resource) {
-			if ($resource->isFrontCover()) {
-				return $resource;
-			}
-		}
-	}
-	
-	/**
-	 * Get all image resources
-	 *
-	 * @return SupportingResource[]|array
-	 */
-	public function getImageResources()
-	{	
-		return array_filter($this->SupportingResource, function($resource) {
-			return $resource->isImage();
-		});
-	}
+        $this->Prize = array_values(array_filter(
+            $this->Prize,
+            static fn ($item): bool => $item !== $prize,
+        ));
 
+        return $this;
+    }
 }

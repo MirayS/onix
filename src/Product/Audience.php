@@ -1,66 +1,95 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList29;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList29;
 
 class Audience
 {
+    private ?bool $MainAudience = null;
 
-    /**
-     * AudienceCodeType
-     *
-     * @var CodeList
-     */
-    protected $AudienceCodeType;
+    private ?CodeList29 $AudienceCodeType = null;
 
-    /**
-     * AudienceCodeValue
-     *
-     * @var string
-     */
-    protected $AudienceCodeValue;
+    private ?string $AudienceCodeTypeName = null;
 
-    /**
-     * Set AudienceCodeType
-     *
-     * @param string $AudienceCodeType
-     * @return void
-     */
-    public function setAudienceCodeType(CodeList29 $AudienceCodeType)
+    private ?string $AudienceCodeValue = null;
+
+    private array $AudienceHeadingText = [];
+
+    public function setMainAudience(bool $mainAudience): static
     {
-        $this->AudienceCodeType = $AudienceCodeType;
+        $this->MainAudience = $mainAudience;
+
+        return $this;
     }
 
-    /**
-     * Set AudienceCodeValue
-     *
-     * @param string $AudienceCodeValue
-     * @return void
-     */
-    public function setAudienceCodeValue(string $AudienceCodeValue)
+    public function getMainAudience(): ?bool
     {
-        $this->AudienceCodeValue = $AudienceCodeValue;
+        return $this->MainAudience;
     }
 
-    /**
-     * Get AudienceCodeType
-     *
-     * @return CodeList
-     */
-    public function getAudienceCodeType()
+    public function hasMainAudience(): bool
+    {
+        return $this->MainAudience === true;
+    }
+
+    public function setAudienceCodeType(CodeList29 $audienceCodeType): static
+    {
+        $this->AudienceCodeType = $audienceCodeType;
+
+        return $this;
+    }
+
+    public function getAudienceCodeType(): ?CodeList29
     {
         return $this->AudienceCodeType;
     }
 
-    /**
-     * Get AudienceCodeValue
-     *
-     * @return string
-     */
-    public function getAudienceCodeValue()
+    public function setAudienceCodeTypeName(string $audienceCodeTypeName): static
+    {
+        $this->AudienceCodeTypeName = $audienceCodeTypeName;
+
+        return $this;
+    }
+
+    public function getAudienceCodeTypeName(): ?string
+    {
+        return $this->AudienceCodeTypeName;
+    }
+
+    public function setAudienceCodeValue(string $audienceCodeValue): static
+    {
+        $this->AudienceCodeValue = $audienceCodeValue;
+
+        return $this;
+    }
+
+    public function getAudienceCodeValue(): ?string
     {
         return $this->AudienceCodeValue;
     }
 
+    public function addAudienceHeadingText(string $audienceHeadingText): static
+    {
+        $this->AudienceHeadingText[] = $audienceHeadingText;
+
+        return $this;
+    }
+
+    public function getAudienceHeadingText(): array
+    {
+        return $this->AudienceHeadingText;
+    }
+
+    public function removeAudienceHeadingText(string $audienceHeadingText): static
+    {
+        $this->AudienceHeadingText = array_values(array_filter(
+            $this->AudienceHeadingText,
+            static fn ($item): bool => $item !== $audienceHeadingText,
+        ));
+
+        return $this;
+    }
 }

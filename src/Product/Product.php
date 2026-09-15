@@ -1,331 +1,288 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList1;
-use Ribal\Onix\CodeList\CodeList3;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList1;
+use MirayS\Onix\CodeList\CodeList3;
+use MirayS\Onix\Support\ProductShortcuts;
 
 class Product
 {
+    use ProductShortcuts;
 
-    /**
-     * RecordReference
-     *
-     * @var string
-     */
-    protected $RecordReference;
+    private ?string $RecordReference = null;
 
-    /**
-     * NotificationType (Early Notification by default)
-     *
-     * @var CodeList
-     */
-    protected $NotificationType;
+    private ?CodeList1 $NotificationType = null;
 
-    /**
-     * RecordSourceType
-     *
-     * @var string
-     */
-    protected $RecordSourceType;
+    private array $DeletionText = [];
 
-    /**
-     * RecordSourceIdentifier
-     *
-     * @var RecordSourceIdentifier
-     */
-    protected $RecordSourceIdentifier;
+    private ?CodeList3 $RecordSourceType = null;
 
-    /**
-     * RecordSourceName
-     *
-     * @var string
-     */
-    protected $RecordSourceName;
+    private array $RecordSourceIdentifier = [];
 
-    /**
-     * ProductItentifiers
-     *
-     * @var array|ProductItentifier
-     */
-    protected $ProductItentifier = [];
+    private ?string $RecordSourceName = null;
 
-    /**
-     * DescriptiveDetail
-     *
-     * @var DescriptiveDetail
-     */
-    protected $DescriptiveDetail;
+    private array $ProductIdentifier = [];
 
-    /**
-     * CollateralDetail
-     *
-     * @var CollateralDetail
-     */
-    protected $CollateralDetail;
+    private array $Barcode = [];
 
-    /**
-     * PublishingDetail
-     *
-     * @var PublishingDetail
-     */
-    protected $PublishingDetail;
+    private ?DescriptiveDetail $DescriptiveDetail = null;
 
-    /**
-     * RelatedMaterial
-     *
-     * @var RelatedMaterial
-     */
-    protected $RelatedMaterial;
+    private ?CollateralDetail $CollateralDetail = null;
 
-    /**
-     * ProductSupply
-     *
-     * @var array|ProductSupply
-     */
-    protected $ProductSupply = [];
+    private ?PromotionDetail $PromotionDetail = null;
 
-    /**
-     * Set the Products record reference
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setRecordReference(string $value)
+    private ?ContentDetail $ContentDetail = null;
+
+    private ?PublishingDetail $PublishingDetail = null;
+
+    private ?RelatedMaterial $RelatedMaterial = null;
+
+    private ?ProductionDetail $ProductionDetail = null;
+
+    private array $ProductSupply = [];
+
+    public function setRecordReference(string $recordReference): static
     {
-        $this->RecordReference = $value;
+        $this->RecordReference = $recordReference;
+
+        return $this;
     }
 
-    /**
-     * Set the type of notification
-     *
-     * @param Code $NotificationType
-     * @return void
-     */
-    public function setNotificationType(CodeList1 $NotificationType)
-    {
-        $this->NotificationType = $NotificationType;
-    }
-
-    /**
-     * Set RecordSourceType
-     *
-     * @param string $RecordSourceType
-     * @return void
-     */
-    public function setRecordSourceType(CodeList3 $RecordSourceType)
-    {
-        $this->RecordSourceType = $RecordSourceType;
-    }
-
-    /**
-     * Set RecordSourceIdentifier
-     *
-     * @param RecordSourceIdentifier $RecordSourceIdentifier
-     * @return void
-     */
-    public function setRecordSourceIdentifier(RecordSourceIdentifier $RecordSourceIdentifier)
-    {
-        $this->RecordSourceIdentifier = $RecordSourceIdentifier;
-    }
-
-    /**
-     * Set RecordSourceName
-     *
-     * @param string $RecordSourceName
-     * @return void
-     */
-    public function setRecordSourceName(string $RecordSourceName)
-    {
-        $this->RecordSourceName = $RecordSourceName;
-    }
-
-    /**
-     * Add a new Product Identifier
-     *
-     * @param ProductIdentifier $productIdentifier
-     * @return void
-     */
-    public function addProductIdentifier(ProductIdentifier $productIdentifier)
-    {
-        $this->ProductItentifier[] = $productIdentifier;
-    }
-
-    /**
-     * Remove Product Identifier
-     *
-     * @param ProductIdentifier $productIdentifier
-     * @return void
-     */
-    public function removeProductIdentifier(ProductIdentifier $productIdentifier)
-    {
-        $this->ProductItentifier[] = $productIdentifier;
-    }
-
-    /**
-     * Set Descriptive Details
-     *
-     * @param DescriptiveDetail $descriptiveDetail
-     * @return void
-     */
-    public function setDescriptiveDetail(DescriptiveDetail $descriptiveDetail)
-    {
-        $this->DescriptiveDetail = $descriptiveDetail;
-    }
-
-    /**
-     * Set CollateralDetail
-     *
-     * @param CollateralDetail $CollateralDetail
-     * @return void
-     */
-    public function setCollateralDetail(CollateralDetail $CollateralDetail)
-    {
-        $this->CollateralDetail = $CollateralDetail;
-    }
-
-    /**
-     * Set PublishingDetail
-     *
-     * @param PublishingDetail $PublishingDetail
-     * @return void
-     */
-    public function setPublishingDetail(PublishingDetail $PublishingDetail)
-    {
-        $this->PublishingDetail = $PublishingDetail;
-    }
-
-    /**
-     * Set RelatedMaterial
-     *
-     * @param RelatedMaterial $RelatedMaterial
-     * @return void
-     */
-    public function setRelatedMaterial(RelatedMaterial $RelatedMaterial)
-    {
-        $this->RelatedMaterial = $RelatedMaterial;
-    }
-
-    /**
-     * Add a new Product Supply
-     *
-     * @param ProductSupply $productSupply
-     * @return void
-     */
-    public function addProductSupply(ProductSupply $productSupply)
-    {
-        $this->ProductSupply[] = $productSupply;
-    }
-
-    /**
-     * Remove Product Supply
-     *
-     * @param ProductSupply $productSupply
-     * @return void
-     */
-    public function removeProductSupply(ProductSupply $productSupply)
-    {
-        $this->ProductSupply[] = $productSupply;
-    }
-
-    /**
-     * Get RecordReference
-     *
-     * @return string
-     */
-    public function getRecordReference()
+    public function getRecordReference(): ?string
     {
         return $this->RecordReference;
     }
 
-    /**
-     * Get the Notification Type
-     *
-     * @return \Ribal\Onix\Code
-     */
-    public function getNotificationType()
+    public function setNotificationType(CodeList1 $notificationType): static
+    {
+        $this->NotificationType = $notificationType;
+
+        return $this;
+    }
+
+    public function getNotificationType(): ?CodeList1
     {
         return $this->NotificationType;
     }
 
-    /**
-     * Get DescriptiveDetail
-     *
-     * @return DescriptiveDetail
-     */
-    public function getDescriptiveDetail()
+    public function addDeletionText(string $deletionText): static
     {
-        return $this->DescriptiveDetail;
+        $this->DeletionText[] = $deletionText;
+
+        return $this;
     }
 
-    /**
-     * Get CollateralDetail
-     *
-     * @return CollateralDetail
-     */
-    public function getCollateralDetail()
+    public function getDeletionText(): array
     {
-        return $this->CollateralDetail;
+        return $this->DeletionText;
     }
 
-    /**
-     * Get ProductIdentifiers
-     *
-     * @return array
-     */
-    public function getProductIdentifier()
+    public function removeDeletionText(string $deletionText): static
     {
-        return $this->ProductItentifier;
+        $this->DeletionText = array_values(array_filter(
+            $this->DeletionText,
+            static fn ($item): bool => $item !== $deletionText,
+        ));
+
+        return $this;
     }
 
-    /**
-     * Get PublishingDetail
-     *
-     * @return PublishingDetail
-     */
-    public function getPublishingDetail()
+    public function setRecordSourceType(CodeList3 $recordSourceType): static
     {
-        return $this->PublishingDetail;
+        $this->RecordSourceType = $recordSourceType;
+
+        return $this;
     }
 
-    /**
-     * Get RelatedMaterial
-     *
-     * @return RelatedMaterial
-     */
-    public function getRelatedMaterial()
+    public function getRecordSourceType(): ?CodeList3
     {
-        return $this->RelatedMaterial;
+        return $this->RecordSourceType;
     }
 
-    /**
-     * Get ProductSupply
-     *
-     * @return ProductSupply
-     */
-    public function getProductSupply()
+    public function addRecordSourceIdentifier(RecordSourceIdentifier $recordSourceIdentifier): static
     {
-        return $this->ProductSupply;
+        $this->RecordSourceIdentifier[] = $recordSourceIdentifier;
+
+        return $this;
     }
 
-    /**
-     * Get RecordSourceIdentifier
-     *
-     * @return RecordSourceIdentifier
-     */
-    public function getRecordSourceIdentifier()
+    public function getRecordSourceIdentifier(): array
     {
         return $this->RecordSourceIdentifier;
     }
 
-    /**
-     * Get RecordSourceName
-     *
-     * @return string
-     */
-    public function getRecordSourceName()
+    public function removeRecordSourceIdentifier(RecordSourceIdentifier $recordSourceIdentifier): static
+    {
+        $this->RecordSourceIdentifier = array_values(array_filter(
+            $this->RecordSourceIdentifier,
+            static fn ($item): bool => $item !== $recordSourceIdentifier,
+        ));
+
+        return $this;
+    }
+
+    public function setRecordSourceName(string $recordSourceName): static
+    {
+        $this->RecordSourceName = $recordSourceName;
+
+        return $this;
+    }
+
+    public function getRecordSourceName(): ?string
     {
         return $this->RecordSourceName;
     }
 
+    public function addProductIdentifier(ProductIdentifier $productIdentifier): static
+    {
+        $this->ProductIdentifier[] = $productIdentifier;
+
+        return $this;
+    }
+
+    public function getProductIdentifier(): array
+    {
+        return $this->ProductIdentifier;
+    }
+
+    public function removeProductIdentifier(ProductIdentifier $productIdentifier): static
+    {
+        $this->ProductIdentifier = array_values(array_filter(
+            $this->ProductIdentifier,
+            static fn ($item): bool => $item !== $productIdentifier,
+        ));
+
+        return $this;
+    }
+
+    public function addBarcode(Barcode $barcode): static
+    {
+        $this->Barcode[] = $barcode;
+
+        return $this;
+    }
+
+    public function getBarcode(): array
+    {
+        return $this->Barcode;
+    }
+
+    public function removeBarcode(Barcode $barcode): static
+    {
+        $this->Barcode = array_values(array_filter(
+            $this->Barcode,
+            static fn ($item): bool => $item !== $barcode,
+        ));
+
+        return $this;
+    }
+
+    public function setDescriptiveDetail(DescriptiveDetail $descriptiveDetail): static
+    {
+        $this->DescriptiveDetail = $descriptiveDetail;
+
+        return $this;
+    }
+
+    public function getDescriptiveDetail(): ?DescriptiveDetail
+    {
+        return $this->DescriptiveDetail;
+    }
+
+    public function setCollateralDetail(CollateralDetail $collateralDetail): static
+    {
+        $this->CollateralDetail = $collateralDetail;
+
+        return $this;
+    }
+
+    public function getCollateralDetail(): ?CollateralDetail
+    {
+        return $this->CollateralDetail;
+    }
+
+    public function setPromotionDetail(PromotionDetail $promotionDetail): static
+    {
+        $this->PromotionDetail = $promotionDetail;
+
+        return $this;
+    }
+
+    public function getPromotionDetail(): ?PromotionDetail
+    {
+        return $this->PromotionDetail;
+    }
+
+    public function setContentDetail(ContentDetail $contentDetail): static
+    {
+        $this->ContentDetail = $contentDetail;
+
+        return $this;
+    }
+
+    public function getContentDetail(): ?ContentDetail
+    {
+        return $this->ContentDetail;
+    }
+
+    public function setPublishingDetail(PublishingDetail $publishingDetail): static
+    {
+        $this->PublishingDetail = $publishingDetail;
+
+        return $this;
+    }
+
+    public function getPublishingDetail(): ?PublishingDetail
+    {
+        return $this->PublishingDetail;
+    }
+
+    public function setRelatedMaterial(RelatedMaterial $relatedMaterial): static
+    {
+        $this->RelatedMaterial = $relatedMaterial;
+
+        return $this;
+    }
+
+    public function getRelatedMaterial(): ?RelatedMaterial
+    {
+        return $this->RelatedMaterial;
+    }
+
+    public function setProductionDetail(ProductionDetail $productionDetail): static
+    {
+        $this->ProductionDetail = $productionDetail;
+
+        return $this;
+    }
+
+    public function getProductionDetail(): ?ProductionDetail
+    {
+        return $this->ProductionDetail;
+    }
+
+    public function addProductSupply(ProductSupply $productSupply): static
+    {
+        $this->ProductSupply[] = $productSupply;
+
+        return $this;
+    }
+
+    public function getProductSupply(): array
+    {
+        return $this->ProductSupply;
+    }
+
+    public function removeProductSupply(ProductSupply $productSupply): static
+    {
+        $this->ProductSupply = array_values(array_filter(
+            $this->ProductSupply,
+            static fn ($item): bool => $item !== $productSupply,
+        ));
+
+        return $this;
+    }
 }

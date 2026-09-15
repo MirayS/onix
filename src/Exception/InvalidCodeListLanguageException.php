@@ -1,11 +1,9 @@
 <?php
 
-namespace Ribal\Onix\Exception;
+declare(strict_types=1);
 
-use InvalidArgumentException;
+namespace MirayS\Onix\Exception;
 
-class InvalidCodeListLanguageException extends InvalidArgumentException
+class InvalidCodeListLanguageException extends OnixException
 {
-
-
 }

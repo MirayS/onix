@@ -1,92 +1,84 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
+
+namespace MirayS\Onix\Product;
 
 class ProductSupply
 {
+    private ?string $MarketReference = null;
 
-    /**
-     * Market
-     *
-     * @var Market
-     */
-    protected $Market;
+    private array $Market = [];
 
-    /**
-     * MarketPublishingDetail
-     *
-     * @var MarketPublishingDetail
-     */
-    protected $MarketPublishingDetail;
+    private ?MarketPublishingDetail $MarketPublishingDetail = null;
 
-    /**
-     * SupplyDetail
-     *
-     * @var SupplyDetail
-     */
-    protected $SupplyDetail;
+    private array $SupplyDetail = [];
 
-    /**
-     * Set Market
-     *
-     * @param Market $Market
-     * @return void
-     */
-    public function setMarket(Market $Market)
+    public function setMarketReference(string $marketReference): static
     {
-        $this->Market = $Market;
+        $this->MarketReference = $marketReference;
+
+        return $this;
     }
 
-    /**
-     * Set MarketPublishingDetail
-     *
-     * @param MarketPublishingDetail $MarketPublishingDetail
-     * @return void
-     */
-    public function setMarketPublishingDetail(MarketPublishingDetail $MarketPublishingDetail)
+    public function getMarketReference(): ?string
     {
-        $this->MarketPublishingDetail = $MarketPublishingDetail;
+        return $this->MarketReference;
     }
 
-    /**
-     * Set SupplyDetail
-     *
-     * @param SupplyDetail $SupplyDetail
-     * @return void
-     */
-    public function setSupplyDetail(SupplyDetail $SupplyDetail)
+    public function addMarket(Market $market): static
     {
-        $this->SupplyDetail = $SupplyDetail;
+        $this->Market[] = $market;
+
+        return $this;
     }
 
-    /**
-     * Get Market
-     *
-     * @return Market
-     */
-    public function getMarket()
+    public function getMarket(): array
     {
         return $this->Market;
     }
 
-    /**
-     * Get MarketPublishingDetail
-     *
-     * @return MarketPublishingDetail
-     */
-    public function getMarketPublishingDetail()
+    public function removeMarket(Market $market): static
+    {
+        $this->Market = array_values(array_filter(
+            $this->Market,
+            static fn ($item): bool => $item !== $market,
+        ));
+
+        return $this;
+    }
+
+    public function setMarketPublishingDetail(MarketPublishingDetail $marketPublishingDetail): static
+    {
+        $this->MarketPublishingDetail = $marketPublishingDetail;
+
+        return $this;
+    }
+
+    public function getMarketPublishingDetail(): ?MarketPublishingDetail
     {
         return $this->MarketPublishingDetail;
     }
 
-    /**
-     * Get SupplyDetail
-     *
-     * @return SupplyDetail
-     */
-    public function getSupplyDetail()
+    public function addSupplyDetail(SupplyDetail $supplyDetail): static
+    {
+        $this->SupplyDetail[] = $supplyDetail;
+
+        return $this;
+    }
+
+    public function getSupplyDetail(): array
     {
         return $this->SupplyDetail;
     }
 
+    public function removeSupplyDetail(SupplyDetail $supplyDetail): static
+    {
+        $this->SupplyDetail = array_values(array_filter(
+            $this->SupplyDetail,
+            static fn ($item): bool => $item !== $supplyDetail,
+        ));
+
+        return $this;
+    }
 }

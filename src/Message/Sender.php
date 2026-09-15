@@ -1,65 +1,88 @@
 <?php
 
-namespace Ribal\Onix\Message;
+declare(strict_types=1);
 
-use Ribal\Onix\XmlIterator;
+namespace MirayS\Onix\Message;
 
 class Sender
 {
+    private array $SenderIdentifier = [];
 
-    /**
-     * Name of the sender, e.g. organization
-     *
-     * @var string
-     */
-    protected $SenderName;
+    private ?string $SenderName = null;
 
-    /**
-     * Name of the primary sender contact,
-     * e.g. first name / last name
-     *
-     * @var string
-     */
-    protected $ContactName;
+    private ?string $ContactName = null;
 
-    /**
-     * E-Mail address of the sender
-     *
-     * @var string
-     */
-    protected $EmailAddress;
+    private ?string $TelephoneNumber = null;
 
-    /**
-     * Set the senders organizational name
-     *
-     * @param string $senderName
-     * @return void
-     */
-    public function setSenderName(string $senderName)
+    private ?string $EmailAddress = null;
+
+    public function addSenderIdentifier(SenderIdentifier $senderIdentifier): static
+    {
+        $this->SenderIdentifier[] = $senderIdentifier;
+
+        return $this;
+    }
+
+    public function getSenderIdentifier(): array
+    {
+        return $this->SenderIdentifier;
+    }
+
+    public function removeSenderIdentifier(SenderIdentifier $senderIdentifier): static
+    {
+        $this->SenderIdentifier = array_values(array_filter(
+            $this->SenderIdentifier,
+            static fn ($item): bool => $item !== $senderIdentifier,
+        ));
+
+        return $this;
+    }
+
+    public function setSenderName(string $senderName): static
     {
         $this->SenderName = $senderName;
+
+        return $this;
     }
 
-    /**
-     * Set the sender's contact name
-     *
-     * @param string $contactName
-     * @return void
-     */
-    public function setContactName(string $contactName)
+    public function getSenderName(): ?string
+    {
+        return $this->SenderName;
+    }
+
+    public function setContactName(string $contactName): static
     {
         $this->ContactName = $contactName;
+
+        return $this;
     }
 
-    /**
-     * Set the senders email address
-     *
-     * @param string $emailAddress
-     * @return void
-     */
-    public function setEmailAddress(string $emailAddress)
+    public function getContactName(): ?string
+    {
+        return $this->ContactName;
+    }
+
+    public function setTelephoneNumber(string $telephoneNumber): static
+    {
+        $this->TelephoneNumber = $telephoneNumber;
+
+        return $this;
+    }
+
+    public function getTelephoneNumber(): ?string
+    {
+        return $this->TelephoneNumber;
+    }
+
+    public function setEmailAddress(string $emailAddress): static
     {
         $this->EmailAddress = $emailAddress;
+
+        return $this;
     }
 
+    public function getEmailAddress(): ?string
+    {
+        return $this->EmailAddress;
+    }
 }

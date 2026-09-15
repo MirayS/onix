@@ -1,66 +1,52 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList16;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList16;
 
 class WorkIdentifier
 {
+    private ?CodeList16 $WorkIDType = null;
 
-    /**
-     * WorkIDType
-     *
-     * @var CodeList
-     */
-    protected $WorkIDType;
-    
-    /**
-     * IDValue
-     *
-     * @var string
-     */
-    protected $IDValue;
+    private ?string $IDTypeName = null;
 
-    /**
-     * Set WorkIDType
-     *
-     * @param CodeList16 $WorkIDType
-     * @return void
-     */
-    public function setWorkIDType(CodeList16 $WorkIDType)
+    private ?string $IDValue = null;
+
+    public function setWorkIDType(CodeList16 $workIDType): static
     {
-        $this->WorkIDType = $WorkIDType;
+        $this->WorkIDType = $workIDType;
+
+        return $this;
     }
 
-    /**
-     * Set IDValue
-     *
-     * @param string $IDValue
-     * @return void
-     */
-    public function setIDValue(string $IDValue)
-    {
-        $this->IDValue = $IDValue;
-    }
-
-    /**
-     * Get WorkIDType
-     *
-     * @return void
-     */
-    public function getWorkIDType()
+    public function getWorkIDType(): ?CodeList16
     {
         return $this->WorkIDType;
     }
 
-    /**
-     * Get IDValue
-     *
-     * @return string
-     */
-    public function getIDValue()
+    public function setIDTypeName(string $iDTypeName): static
+    {
+        $this->IDTypeName = $iDTypeName;
+
+        return $this;
+    }
+
+    public function getIDTypeName(): ?string
+    {
+        return $this->IDTypeName;
+    }
+
+    public function setIDValue(string $iDValue): static
+    {
+        $this->IDValue = $iDValue;
+
+        return $this;
+    }
+
+    public function getIDValue(): ?string
     {
         return $this->IDValue;
     }
-
 }

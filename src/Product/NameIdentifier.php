@@ -1,94 +1,52 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList44;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList44;
 
 class NameIdentifier
 {
+    private ?CodeList44 $NameIDType = null;
 
-    /**
-     * NameIDType
-     *
-     * @var CodeList
-     */
-    protected $NameIDType;
+    private ?string $IDTypeName = null;
 
-    /**
-     * IDTypeName
-     *
-     * @var string
-     */
-    protected $IDTypeName;
+    private ?string $IDValue = null;
 
-    /**
-     * IDValue
-     *
-     * @var string
-     */
-    protected $IDValue;
-
-    /**
-     * Set NameIDType
-     *
-     * @param  string $NameIDType
-     * @return void
-     */
-    public function setNameIDType(CodeList44 $NameIDType)
+    public function setNameIDType(CodeList44 $nameIDType): static
     {
-        $this->NameIDType = $NameIDType;
+        $this->NameIDType = $nameIDType;
+
+        return $this;
     }
 
-    /**
-     * Set IDTypeName
-     *
-     * @param  string $IDTypeName
-     * @return void
-     */
-    public function setIDTypeName(string $IDTypeName)
-    {
-        $this->IDTypeName = $IDTypeName;
-    }
-
-    /**
-     * Set IDValue
-     *
-     * @param  string $IDValue
-     * @return void
-     */
-    public function setIDValue(string $IDValue)
-    {
-        $this->IDValue = $IDValue;
-    }
-
-    /**
-     * Get NameIDType
-     *
-     * @return CodeList
-     */
-    public function getNameIDType()
+    public function getNameIDType(): ?CodeList44
     {
         return $this->NameIDType;
     }
 
-    /**
-     * IDTypeName
-     *
-     * @return string
-     */
-    public function getIDTypeName()
+    public function setIDTypeName(string $iDTypeName): static
+    {
+        $this->IDTypeName = $iDTypeName;
+
+        return $this;
+    }
+
+    public function getIDTypeName(): ?string
     {
         return $this->IDTypeName;
     }
 
-    /**
-     * Get IDValue
-     *
-     * @return string
-     */
-    public function getIDValue()
+    public function setIDValue(string $iDValue): static
+    {
+        $this->IDValue = $iDValue;
+
+        return $this;
+    }
+
+    public function getIDValue(): ?string
     {
         return $this->IDValue;
     }
-
 }

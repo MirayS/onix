@@ -1,76 +1,63 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList15;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList15;
+use MirayS\Onix\Text;
 
 class TitleDetail
 {
+    private ?CodeList15 $TitleType = null;
 
-    /**
-     * TitleType
-     *
-     * @var CodeList
-     */
-    protected $TitleType;
+    private array $TitleElement = [];
 
-    /**
-     * Array of TitleElement
-     *
-     * @var TitleElement[]
-     */
-    protected $TitleElement = [];
+    private ?Text $TitleStatement = null;
 
-    /**
-     * Set TitleType
-     *
-     * @param string $TitleType
-     * @return void
-     */
-    public function setTitleType(CodeList15 $TitleType)
+    public function setTitleType(CodeList15 $titleType): static
     {
-        $this->TitleType = $TitleType;
+        $this->TitleType = $titleType;
+
+        return $this;
     }
 
-    /**
-     * Add TitleElement
-     *
-     * @param TitleElement $TitleElement
-     * @return void
-     */
-    public function addTitleElement(TitleElement $TitleElement)
-    {
-        $this->TitleElement[] = $TitleElement;
-    }
-
-    /**
-     * Remove TitleElement
-     *
-     * @param TitleElement $TitleElement
-     * @return void
-     */
-    public function removeTitleElement(TitleElement $TitleElement)
-    {
-    }
-
-    /**
-     * Get TitleType
-     *
-     * @return void
-     */
-    public function getTitleType()
+    public function getTitleType(): ?CodeList15
     {
         return $this->TitleType;
     }
 
-    /**
-     * Get TitleElements
-     *
-     * @return void
-     */
-    public function getTitleElement()
+    public function addTitleElement(TitleElement $titleElement): static
+    {
+        $this->TitleElement[] = $titleElement;
+
+        return $this;
+    }
+
+    public function getTitleElement(): array
     {
         return $this->TitleElement;
     }
 
+    public function removeTitleElement(TitleElement $titleElement): static
+    {
+        $this->TitleElement = array_values(array_filter(
+            $this->TitleElement,
+            static fn ($item): bool => $item !== $titleElement,
+        ));
+
+        return $this;
+    }
+
+    public function setTitleStatement(Text $titleStatement): static
+    {
+        $this->TitleStatement = $titleStatement;
+
+        return $this;
+    }
+
+    public function getTitleStatement(): ?Text
+    {
+        return $this->TitleStatement;
+    }
 }

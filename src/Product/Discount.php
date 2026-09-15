@@ -1,36 +1,80 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
+
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList170;
 
 class Discount
 {
+    private ?CodeList170 $DiscountType = null;
 
-    /**
-     * DiscountPercent
-     *
-     * @var float
-     */
-    protected $DiscountPercent;
+    private ?string $Quantity = null;
 
-    /**
-     * Set DiscountPercent
-     *
-     * @param float $DiscountPercent
-     * @return void
-     */
-    public function setDiscountPercent(string $DiscountPercent)
+    private ?string $ToQuantity = null;
+
+    private ?string $DiscountPercent = null;
+
+    private ?string $DiscountAmount = null;
+
+    public function setDiscountType(CodeList170 $discountType): static
     {
-        $this->DiscountPercent = (float) $DiscountPercent;
+        $this->DiscountType = $discountType;
+
+        return $this;
     }
 
-    /**
-     * Get DiscountPercent
-     *
-     * @return float
-     */
-    public function getDiscountPercent()
+    public function getDiscountType(): ?CodeList170
+    {
+        return $this->DiscountType;
+    }
+
+    public function setQuantity(string $quantity): static
+    {
+        $this->Quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?string
+    {
+        return $this->Quantity;
+    }
+
+    public function setToQuantity(string $toQuantity): static
+    {
+        $this->ToQuantity = $toQuantity;
+
+        return $this;
+    }
+
+    public function getToQuantity(): ?string
+    {
+        return $this->ToQuantity;
+    }
+
+    public function setDiscountPercent(string $discountPercent): static
+    {
+        $this->DiscountPercent = $discountPercent;
+
+        return $this;
+    }
+
+    public function getDiscountPercent(): ?string
     {
         return $this->DiscountPercent;
     }
 
+    public function setDiscountAmount(string $discountAmount): static
+    {
+        $this->DiscountAmount = $discountAmount;
+
+        return $this;
+    }
+
+    public function getDiscountAmount(): ?string
+    {
+        return $this->DiscountAmount;
+    }
 }

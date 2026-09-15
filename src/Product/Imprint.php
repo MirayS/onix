@@ -1,36 +1,60 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
+
+namespace MirayS\Onix\Product;
 
 class Imprint
 {
+    private array $ImprintIdentifier = [];
 
-    /**
-     * ImprintName
-     *
-     * @var string
-     */
-    protected $ImprintName;
+    private ?string $ImprintName = null;
 
-    /**
-     * Set ImprintName
-     *
-     * @param string $ImprintName
-     * @return void
-     */
-    public function setImprintName(string $ImprintName)
+    private ?string $ImprintNameInverted = null;
+
+    public function addImprintIdentifier(ImprintIdentifier $imprintIdentifier): static
     {
-        $this->ImprintName = $ImprintName;
+        $this->ImprintIdentifier[] = $imprintIdentifier;
+
+        return $this;
     }
 
-    /**
-     * Get ImprintName
-     *
-     * @return string
-     */
-    public function getImprintName()
+    public function getImprintIdentifier(): array
+    {
+        return $this->ImprintIdentifier;
+    }
+
+    public function removeImprintIdentifier(ImprintIdentifier $imprintIdentifier): static
+    {
+        $this->ImprintIdentifier = array_values(array_filter(
+            $this->ImprintIdentifier,
+            static fn ($item): bool => $item !== $imprintIdentifier,
+        ));
+
+        return $this;
+    }
+
+    public function setImprintName(string $imprintName): static
+    {
+        $this->ImprintName = $imprintName;
+
+        return $this;
+    }
+
+    public function getImprintName(): ?string
     {
         return $this->ImprintName;
     }
 
+    public function setImprintNameInverted(string $imprintNameInverted): static
+    {
+        $this->ImprintNameInverted = $imprintNameInverted;
+
+        return $this;
+    }
+
+    public function getImprintNameInverted(): ?string
+    {
+        return $this->ImprintNameInverted;
+    }
 }

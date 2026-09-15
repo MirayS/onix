@@ -1,146 +1,144 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList45;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList45;
 
 class Publisher
 {
+    private ?CodeList45 $PublishingRole = null;
 
-    /**
-     * PublishingRole
-     *
-     * @var CodeList
-     */
-    protected $PublishingRole;
+    private array $PublisherIdentifier = [];
 
-    /**
-     * PublisherIdentifier
-     *
-     * @var array
-     */
-    protected $PublisherIdentifier = [];
+    private array $PublisherName = [];
 
-    /**
-     * PublisherName
-     *
-     * @var string
-     */
-    protected $PublisherName;
+    private array $PublisherNameInverted = [];
 
-    /**
-     * Website
-     *
-     * @var Website
-     */
-    protected $Website;
+    private array $Funding = [];
 
-    /**
-     * Set PublishingRole
-     *
-     * @param CodeList45 $PublishingRole
-     * @return void
-     */
-    public function setPublishingRole(CodeList45 $PublishingRole)
+    private array $Website = [];
+
+    public function setPublishingRole(CodeList45 $publishingRole): static
     {
-        $this->PublishingRole = $PublishingRole;
+        $this->PublishingRole = $publishingRole;
+
+        return $this;
     }
 
-    /**
-     * Set PublisherIdentifier
-     *
-     * @param PublisherIdentifier $PublisherIdentifier
-     * @return void
-     */
-    public function setPublisherIdentifier($PublisherIdentifier)
-    {
-        if (!is_array($PublisherIdentifier)) {
-            $PublisherIdentifier = [$PublisherIdentifier];
-        }
-
-        $this->PublisherIdentifier = array_merge($this->PublisherIdentifier, $PublisherIdentifier);
-    }
-
-    /**
-     * Set PublisherIdentifier
-     *
-     * @param PublisherIdentifier $PublisherIdentifier
-     * @return void
-     */
-    public function addPublisherIdentifier(PublisherIdentifier $PublisherIdentifier)
-    {
-        $this->PublisherIdentifier[] = $PublisherIdentifier;
-    }
-
-    /**
-     * Set PublisherName
-     *
-     * @param string $PublisherName
-     * @return void
-     */
-    public function setPublisherName(string $PublisherName)
-    {
-        $this->PublisherName = $PublisherName;
-    }
-
-    /**
-     * Set Website
-     *
-     * @param Website $Website
-     * @return void
-     */
-    public function setWebsite(Website $Website)
-    {
-        $this->Website = $Website;
-    }
-
-    /**
-     * Get PublishingRole
-     *
-     * @return CodeList
-     */
-    public function getPublishingRole()
+    public function getPublishingRole(): ?CodeList45
     {
         return $this->PublishingRole;
     }
 
-    /**
-     * Get PublisherIdentifier
-     *
-     * @return PublisherIdentifier
-     */
-    public function getPublisherIdentifier()
+    public function addPublisherIdentifier(PublisherIdentifier $publisherIdentifier): static
+    {
+        $this->PublisherIdentifier[] = $publisherIdentifier;
+
+        return $this;
+    }
+
+    public function getPublisherIdentifier(): array
     {
         return $this->PublisherIdentifier;
     }
 
-    /**
-     * Get PublisherName
-     *
-     * @return string
-     */
-    public function getPublisherName()
+    public function removePublisherIdentifier(PublisherIdentifier $publisherIdentifier): static
+    {
+        $this->PublisherIdentifier = array_values(array_filter(
+            $this->PublisherIdentifier,
+            static fn ($item): bool => $item !== $publisherIdentifier,
+        ));
+
+        return $this;
+    }
+
+    public function addPublisherName(string $publisherName): static
+    {
+        $this->PublisherName[] = $publisherName;
+
+        return $this;
+    }
+
+    public function getPublisherName(): array
     {
         return $this->PublisherName;
     }
 
-    /**
-     * Get Website
-     *
-     * @return Website
-     */
-    public function getWebsite()
+    public function removePublisherName(string $publisherName): static
+    {
+        $this->PublisherName = array_values(array_filter(
+            $this->PublisherName,
+            static fn ($item): bool => $item !== $publisherName,
+        ));
+
+        return $this;
+    }
+
+    public function addPublisherNameInverted(string $publisherNameInverted): static
+    {
+        $this->PublisherNameInverted[] = $publisherNameInverted;
+
+        return $this;
+    }
+
+    public function getPublisherNameInverted(): array
+    {
+        return $this->PublisherNameInverted;
+    }
+
+    public function removePublisherNameInverted(string $publisherNameInverted): static
+    {
+        $this->PublisherNameInverted = array_values(array_filter(
+            $this->PublisherNameInverted,
+            static fn ($item): bool => $item !== $publisherNameInverted,
+        ));
+
+        return $this;
+    }
+
+    public function addFunding(Funding $funding): static
+    {
+        $this->Funding[] = $funding;
+
+        return $this;
+    }
+
+    public function getFunding(): array
+    {
+        return $this->Funding;
+    }
+
+    public function removeFunding(Funding $funding): static
+    {
+        $this->Funding = array_values(array_filter(
+            $this->Funding,
+            static fn ($item): bool => $item !== $funding,
+        ));
+
+        return $this;
+    }
+
+    public function addWebsite(Website $website): static
+    {
+        $this->Website[] = $website;
+
+        return $this;
+    }
+
+    public function getWebsite(): array
     {
         return $this->Website;
     }
 
-    /**
-     * Get PublisherIdentifier
-     *
-     * @return PublisherIdentifier
-     */
-    public function removePublisherIdentifier()
+    public function removeWebsite(Website $website): static
     {
-    }
+        $this->Website = array_values(array_filter(
+            $this->Website,
+            static fn ($item): bool => $item !== $website,
+        ));
 
+        return $this;
+    }
 }

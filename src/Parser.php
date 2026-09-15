@@ -1,99 +1,93 @@
 <?php
 
-namespace Ribal\Onix;
+declare(strict_types=1);
 
-use Ribal\Onix\Message\Message;
-use Ribal\Onix\Normalizer\CodeListNormalizer;
-use Ribal\Onix\Normalizer\DateNormalizer;
-use Ribal\Onix\Normalizer\ShortTagNameConverter;
-use Ribal\Onix\Normalizer\TextNormalizer;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
+namespace MirayS\Onix;
+
+use Generator;
+use MirayS\Onix\Message\Message;
+use MirayS\Onix\Product\Product;
+use MirayS\Onix\Reader\OnixReader;
 
 class Parser
 {
+    private OnixReader $reader;
 
-    /**
-     * XML Encoder
-     *
-     * @var XmlEncoder
-     */
-    private $encoder;
+    public function __construct(
+        private readonly string $language = 'en',
+        private readonly bool $strict = false,
+        private readonly bool $validateRelease = false,
+    ) {
+        $this->reader = $this->createReader();
+    }
 
-    /**
-     * Array of normalizers to use
-     *
-     * @var array
-     */
-    private $normalizers = [];
-
-    /**
-     * Serializer service
-     *
-     * @var Serializer;
-     */
-    private $serializer;
-
-    /**
-     * Constructor function
-     * 
-     * Initializes the needed libraries and classes to work with
-     * 
-     * @param string $language
-     * @return Parser
-     */
-    public function __construct(string $language = 'en')
+    public function stream(string $source): Generator
     {
+        $this->reader = $this->createReader();
 
-		$supportedLanguages = ['en', 'es', 'de', 'fr', 'it', 'nb', 'tr'];
-		
-    	if (!in_array($language, $supportedLanguages)) {
-    		throw new \InvalidArgumentException('Language must be one of ' . join(', ', $supportedLanguages));
-    	}
-    
-        $this->encoder = new ONIXEncoder();
-
-        $this->normalizers = [
-            new ArrayDenormalizer(),
-            new CodeListNormalizer($language),
-            new DateNormalizer(),
-            new TextNormalizer(),
-            new ObjectNormalizer(
-                null,
-                new ShortTagNameConverter(),
-                null,
-                new ReflectionExtractor()
-            )
-        ];
-
-        $this->serializer = new Serializer(
-            $this->normalizers,
-            [ $this->encoder ]
-        );
+        return $this->reader->read($source);
     }
 
     /**
-     * Parse an XML string
-     *
-     * @param string $xml
-     * @return Message
+     * @param resource $stream
      */
-    public function parseString(string $xml)
+    public function streamResource($stream): Generator
     {
-        $message = $this->serializer->deserialize($xml, Message::class, 'xml', [
-            // XmlEncoder::DECODER_IGNORED_NODE_TYPES => [XML_TEXT_NODE],
-        ]);
+        $this->reader = $this->createReader();
 
-// dd($this->serializer->serialize($message, 'xml', [
-//     XmlEncoder::ROOT_NODE_NAME => 'ONIXmessage',
-//     XmlEncoder::REMOVE_EMPTY_TAGS => true,
-//     XmlEncoder::FORMAT_OUTPUT => true
-// ]));
+        return $this->reader->readStream($stream);
+    }
+
+    public function streamString(string $xml): Generator
+    {
+        $this->reader = $this->createReader();
+
+        return $this->reader->readString($xml);
+    }
+
+    public function parseString(string $xml): Message
+    {
+        return $this->collect($this->streamString($xml));
+    }
+
+    public function parseFile(string $source): Message
+    {
+        return $this->collect($this->stream($source));
+    }
+
+    private function collect(Generator $products): Message
+    {
+        $message = new Message();
+
+        foreach ($products as $product) {
+            if ($product instanceof Product) {
+                $message->addProduct($product);
+            }
+        }
+
+        $header = $this->reader->getHeader();
+
+        if ($header !== null) {
+            $message->setHeader($header);
+        }
+
+        $message->setRelease($this->reader->getRelease());
 
         return $message;
     }
 
+    public function getReader(): OnixReader
+    {
+        return $this->reader;
+    }
+
+    public function getIssues(): array
+    {
+        return $this->reader->getIssues();
+    }
+
+    private function createReader(): OnixReader
+    {
+        return new OnixReader($this->language, $this->strict, validateRelease: $this->validateRelease);
+    }
 }

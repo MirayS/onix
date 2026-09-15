@@ -1,205 +1,291 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList65;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList57;
+use MirayS\Onix\CodeList\CodeList65;
 
 class SupplyDetail
 {
+    private ?Supplier $Supplier = null;
 
-    /**
-     * Supplier
-     *
-     * @var Supplier
-     */
-    protected $Supplier;
+    private array $SupplyContact = [];
 
-    /**
-     * ReturnsConditions
-     *
-     * @var ReturnsConditions
-     */
-    protected $ReturnsConditions;
+    private array $SupplierOwnCoding = [];
 
-    /**
-     * ProductAvailability
-     *
-     * @var CodeList
-     */
-    protected $ProductAvailability;
+    private array $ReturnsConditions = [];
 
-    /**
-     * Stock
-     *
-     * @var Stock
-     */
-    protected $Stock;
+    private ?CodeList65 $ProductAvailability = null;
 
-    /**
-     * PackQuantity
-     *
-     * @var int
-     */
-    protected $PackQuantity;
+    private array $SupplyDate = [];
 
-    /**
-     * Array of Price
-     *
-     * @var Price[]
-     */
-    protected $Price = [];
+    private ?int $OrderTime = null;
 
-    /**
-     * Set Supplier
-     *
-     * @param Supplier $Supplier
-     * @return void
-     */
-    public function setSupplier(Supplier $Supplier)
+    private ?NewSupplier $NewSupplier = null;
+
+    private array $Stock = [];
+
+    private ?int $PackQuantity = null;
+
+    private ?int $PalletQuantity = null;
+
+    private array $OrderQuantityMinimum = [];
+
+    private ?int $OrderQuantityMultiple = null;
+
+    private ?CodeList57 $UnpricedItemType = null;
+
+    private array $Price = [];
+
+    public function setSupplier(Supplier $supplier): static
     {
-        $this->Supplier = $Supplier;
+        $this->Supplier = $supplier;
+
+        return $this;
     }
 
-    /**
-     * Set ReturnsConditions
-     *
-     * @param ReturnsConditions $ReturnsConditions
-     * @return void
-     */
-    public function setReturnsConditions(ReturnsConditions $ReturnsConditions)
-    {
-        $this->ReturnsConditions = $ReturnsConditions;
-    }
-
-    /**
-     * Set ProductAvailability
-     *
-     * @param CodeList65 $ProductAvailability
-     * @return void
-     */
-    public function setProductAvailability(CodeList65 $ProductAvailability)
-    {
-        $this->ProductAvailability = $ProductAvailability;
-    }
-
-    /**
-     * Set PackQuantity
-     *
-     * @param integer $PackQuantity
-     * @return void
-     */
-    public function setPackQuantity(string $PackQuantity)
-    {
-        $this->PackQuantity = $PackQuantity;
-    }
-
-    /**
-     * Add a new Price
-     *
-     * @param Price $Price
-     * @return void
-     */
-    public function setPrice($Price)
-    {
-        if (!is_array($Price)) return;
-
-        foreach ($Price as $p) {
-            if ($p instanceof Price) {
-                $this->Price[] = $p;
-            }
-        }
-    }
-
-    /**
-     * Add Price
-     *
-     * @param Price $Price
-     * @return void
-     */
-    public function addPrice(Price $Price)
-    {
-        $this->Price[] = $Price;
-    }
-
-    /**
-     * Get Supplier
-     *
-     * @return Supplier
-     */
-    public function getSupplier()
+    public function getSupplier(): ?Supplier
     {
         return $this->Supplier;
     }
 
-    /**
-     * Get ReturnsConditions
-     *
-     * @return ReturnsConditions
-     */
-    public function getReturnsConditions()
+    public function addSupplyContact(SupplyContact $supplyContact): static
+    {
+        $this->SupplyContact[] = $supplyContact;
+
+        return $this;
+    }
+
+    public function getSupplyContact(): array
+    {
+        return $this->SupplyContact;
+    }
+
+    public function removeSupplyContact(SupplyContact $supplyContact): static
+    {
+        $this->SupplyContact = array_values(array_filter(
+            $this->SupplyContact,
+            static fn ($item): bool => $item !== $supplyContact,
+        ));
+
+        return $this;
+    }
+
+    public function addSupplierOwnCoding(SupplierOwnCoding $supplierOwnCoding): static
+    {
+        $this->SupplierOwnCoding[] = $supplierOwnCoding;
+
+        return $this;
+    }
+
+    public function getSupplierOwnCoding(): array
+    {
+        return $this->SupplierOwnCoding;
+    }
+
+    public function removeSupplierOwnCoding(SupplierOwnCoding $supplierOwnCoding): static
+    {
+        $this->SupplierOwnCoding = array_values(array_filter(
+            $this->SupplierOwnCoding,
+            static fn ($item): bool => $item !== $supplierOwnCoding,
+        ));
+
+        return $this;
+    }
+
+    public function addReturnsConditions(ReturnsConditions $returnsConditions): static
+    {
+        $this->ReturnsConditions[] = $returnsConditions;
+
+        return $this;
+    }
+
+    public function getReturnsConditions(): array
     {
         return $this->ReturnsConditions;
     }
 
-    /**
-     * Get ProductAvailability
-     *
-     * @return CodeList
-     */
-    public function getProductAvailability()
+    public function removeReturnsConditions(ReturnsConditions $returnsConditions): static
+    {
+        $this->ReturnsConditions = array_values(array_filter(
+            $this->ReturnsConditions,
+            static fn ($item): bool => $item !== $returnsConditions,
+        ));
+
+        return $this;
+    }
+
+    public function setProductAvailability(CodeList65 $productAvailability): static
+    {
+        $this->ProductAvailability = $productAvailability;
+
+        return $this;
+    }
+
+    public function getProductAvailability(): ?CodeList65
     {
         return $this->ProductAvailability;
     }
 
-    /**
-     * Get Stock
-     *
-     * @return Stock
-     */
-    public function getStock()
+    public function addSupplyDate(SupplyDate $supplyDate): static
+    {
+        $this->SupplyDate[] = $supplyDate;
+
+        return $this;
+    }
+
+    public function getSupplyDate(): array
+    {
+        return $this->SupplyDate;
+    }
+
+    public function removeSupplyDate(SupplyDate $supplyDate): static
+    {
+        $this->SupplyDate = array_values(array_filter(
+            $this->SupplyDate,
+            static fn ($item): bool => $item !== $supplyDate,
+        ));
+
+        return $this;
+    }
+
+    public function setOrderTime(int $orderTime): static
+    {
+        $this->OrderTime = $orderTime;
+
+        return $this;
+    }
+
+    public function getOrderTime(): ?int
+    {
+        return $this->OrderTime;
+    }
+
+    public function setNewSupplier(NewSupplier $newSupplier): static
+    {
+        $this->NewSupplier = $newSupplier;
+
+        return $this;
+    }
+
+    public function getNewSupplier(): ?NewSupplier
+    {
+        return $this->NewSupplier;
+    }
+
+    public function addStock(Stock $stock): static
+    {
+        $this->Stock[] = $stock;
+
+        return $this;
+    }
+
+    public function getStock(): array
     {
         return $this->Stock;
     }
 
-    /**
-     * Set Stock
-     *
-     * @param Stock $Stock
-     * @return void
-     */
-    public function setStock(Stock $Stock)
+    public function removeStock(Stock $stock): static
     {
-        $this->Stock = $Stock;
+        $this->Stock = array_values(array_filter(
+            $this->Stock,
+            static fn ($item): bool => $item !== $stock,
+        ));
+
+        return $this;
     }
 
-    /**
-     * Get PackQuantity
-     *
-     * @return integer
-     */
-    public function getPackQuantity()
+    public function setPackQuantity(int $packQuantity): static
+    {
+        $this->PackQuantity = $packQuantity;
+
+        return $this;
+    }
+
+    public function getPackQuantity(): ?int
     {
         return $this->PackQuantity;
     }
 
-    /**
-     * Get Price
-     *
-     * @return Price[]
-     */
-    public function getPrice()
+    public function setPalletQuantity(int $palletQuantity): static
+    {
+        $this->PalletQuantity = $palletQuantity;
+
+        return $this;
+    }
+
+    public function getPalletQuantity(): ?int
+    {
+        return $this->PalletQuantity;
+    }
+
+    public function addOrderQuantityMinimum(int $orderQuantityMinimum): static
+    {
+        $this->OrderQuantityMinimum[] = $orderQuantityMinimum;
+
+        return $this;
+    }
+
+    public function getOrderQuantityMinimum(): array
+    {
+        return $this->OrderQuantityMinimum;
+    }
+
+    public function removeOrderQuantityMinimum(int $orderQuantityMinimum): static
+    {
+        $this->OrderQuantityMinimum = array_values(array_filter(
+            $this->OrderQuantityMinimum,
+            static fn ($item): bool => $item !== $orderQuantityMinimum,
+        ));
+
+        return $this;
+    }
+
+    public function setOrderQuantityMultiple(int $orderQuantityMultiple): static
+    {
+        $this->OrderQuantityMultiple = $orderQuantityMultiple;
+
+        return $this;
+    }
+
+    public function getOrderQuantityMultiple(): ?int
+    {
+        return $this->OrderQuantityMultiple;
+    }
+
+    public function setUnpricedItemType(CodeList57 $unpricedItemType): static
+    {
+        $this->UnpricedItemType = $unpricedItemType;
+
+        return $this;
+    }
+
+    public function getUnpricedItemType(): ?CodeList57
+    {
+        return $this->UnpricedItemType;
+    }
+
+    public function addPrice(Price $price): static
+    {
+        $this->Price[] = $price;
+
+        return $this;
+    }
+
+    public function getPrice(): array
     {
         return $this->Price;
     }
 
-    /**
-     * Remove Price
-     *
-     * @param Price $Price
-     * @return void
-     */
-    public function removePrice(Price $Price)
+    public function removePrice(Price $price): static
     {
-    }
+        $this->Price = array_values(array_filter(
+            $this->Price,
+            static fn ($item): bool => $item !== $price,
+        ));
 
+        return $this;
+    }
 }

@@ -1,89 +1,56 @@
 <?php
 
-namespace Ribal\Onix\CodeList;
+declare(strict_types=1);
+
+namespace MirayS\Onix\CodeList;
 
 /**
- * ONIX Code List 61
- *
- * Used with <PriceStatus> <j266>
+ * ONIX Code List 61 — Price status
  *
  * @see https://ns.editeur.org/onix/en/61
  */
 class CodeList61 extends CodeList implements CodeListInterface
 {
-	/**
-	 * Code List 61 for en
-	 *
-	 * @var array
-	 * @see https://ns.editeur.org/onix/en/61
-	 */
-	protected static $en = [
-		'00' => 'Unspecified',
-		'01' => 'Provisional',
-		'02' => 'Confirmed',
-	];
+    protected static array $en = [
+        '00' => 'Unspecified',
+        '01' => 'Provisional',
+        '02' => 'Confirmed',
+    ];
 
-	/**
-	 * Code List 61 for es
-	 *
-	 * @var array
-	 * @see https://ns.editeur.org/onix/es/61
-	 */
-	protected static $es = [
-		'00' => 'No especificado',
-		'01' => 'Provisional',
-		'02' => 'Confirmado',
-	];
+    protected static array $es = [
+        '00' => 'No especificado',
+        '01' => 'Provisional',
+        '02' => 'Confirmado',
+    ];
 
-	/**
-	 * Code List 61 for de
-	 *
-	 * @var array
-	 * @see https://ns.editeur.org/onix/de/61
-	 */
-	protected static $de = [
-		'00' => 'Unspecified',
-		'01' => 'Provisional',
-		'02' => 'Confirmed',
-	];
+    protected static array $de = [
+        '00' => 'Unspecified',
+        '01' => 'Provisional',
+        '02' => 'Confirmed',
+    ];
 
-	/**
-	 * Code List 61 for fr
-	 *
-	 * @var array
-	 * @see https://ns.editeur.org/onix/fr/61
-	 */
-	protected static $fr = [
-		'00' => 'Non spécifié',
-		'01' => 'Provisoire',
-		'02' => 'Confirmé',
-	];
+    protected static array $fr = [
+        '00' => 'Non spécifié',
+        '01' => 'Provisoire',
+        '02' => 'Confirmé',
+    ];
 
-	/**
-	 * Code List 61 for it
-	 *
-	 * @var array
-	 * @see https://ns.editeur.org/onix/it/61
-	 */
-	protected static $it = [
-		'00' => 'Non specificato',
-		'01' => 'Provvisorio',
-		'02' => 'Confermato',
-	];
+    protected static array $it = [
+        '00' => 'Non specificato',
+        '01' => 'Provvisorio',
+        '02' => 'Confermato',
+    ];
 
-	/**
-	 * Code List 61 for nb
-	 *
-	 * @var array
-	 * @see https://ns.editeur.org/onix/nb/61
-	 */
-	protected static $nb = ['00' => 'Uspesifisert', '01' => 'Foreløpig', '02' => 'Fast'];
+    protected static array $nb = [
+        '00' => 'Uspesifisert',
+        '01' => 'Foreløpig',
+        '02' => 'Fast',
+    ];
 
-	/**
-	 * Code List 61 for tr
-	 *
-	 * @var array
-	 * @see https://ns.editeur.org/onix/tr/61
-	 */
-	protected static $tr = ['00' => 'Belirtilmemiş', '01' => 'Geçici', '02' => 'Kesin'];
+    protected static array $tr = [
+        '00' => 'Belirtilmemiş',
+        '01' => 'Geçici',
+        '02' => 'Kesin',
+    ];
+
 }

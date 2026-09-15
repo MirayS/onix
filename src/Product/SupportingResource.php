@@ -1,172 +1,140 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList154;
-use Ribal\Onix\CodeList\CodeList158;
-use Ribal\Onix\CodeList\CodeList159;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList154;
+use MirayS\Onix\CodeList\CodeList158;
+use MirayS\Onix\CodeList\CodeList159;
 
 class SupportingResource
 {
+    private ?int $SequenceNumber = null;
 
-	private const TYPE_FRONTCOVER = '01';
-	private const TYPE_BACKCOVER = '02';
-	
-	private const MODE_IMAGE = '03';
-	
+    private ?CodeList158 $ResourceContentType = null;
 
-    /**
-     * ResourceContentType
-     *
-     * @var CodeList
-     */
-    protected $ResourceContentType;
+    private array $ContentAudience = [];
 
-    /**
-     * ContentAudience
-     *
-     * @var CodeList
-     */
-    protected $ContentAudience;
+    private ?Territory $Territory = null;
 
-    /**
-     * ResourceMode
-     *
-     * @var CodeList
-     */
-    protected $ResourceMode;
+    private ?CodeList159 $ResourceMode = null;
 
-    /**
-     * ResourceVersion
-     *
-     * @var ResourceVersion
-     */
-    protected $ResourceVersion;
+    private array $ResourceFeature = [];
 
-    /**
-     * Set ResourceContentType
-     *
-     * @param CodeList158 $ResourceContentType
-     * @return void
-     */
-    public function setResourceContentType(CodeList158 $ResourceContentType)
+    private array $ResourceVersion = [];
+
+    public function setSequenceNumber(int $sequenceNumber): static
     {
-        $this->ResourceContentType = $ResourceContentType;
+        $this->SequenceNumber = $sequenceNumber;
+
+        return $this;
     }
 
-    /**
-     * Set ContentAudience
-     *
-     * @param CodeList154 $ContentAudience
-     * @return void
-     */
-    public function setContentAudience(CodeList154 $ContentAudience)
+    public function getSequenceNumber(): ?int
     {
-        $this->ContentAudience = $ContentAudience;
+        return $this->SequenceNumber;
     }
 
-    /**
-     * Set ResourceMode
-     *
-     * @param CodeList159 $ResourceMode
-     * @return void
-     */
-    public function setResourceMode(CodeList159 $ResourceMode)
+    public function setResourceContentType(CodeList158 $resourceContentType): static
     {
-        $this->ResourceMode = $ResourceMode;
+        $this->ResourceContentType = $resourceContentType;
+
+        return $this;
     }
 
-    /**
-     * Set ResourceVersion
-     *
-     * @param ResourceVersion $ResourceVersion
-     * @return void
-     */
-    public function setResourceVersion(ResourceVersion $ResourceVersion)
-    {
-        $this->ResourceVersion = $ResourceVersion;
-    }
-
-    /**
-     * Get ResourceContentType
-     *
-     * @return CodeList
-     */
-    public function getResourceContentType()
+    public function getResourceContentType(): ?CodeList158
     {
         return $this->ResourceContentType;
     }
 
-    /**
-     * Get ContentAudience
-     *
-     * @return CodeList
-     */
-    public function getContentAudience()
+    public function addContentAudience(CodeList154 $contentAudience): static
+    {
+        $this->ContentAudience[] = $contentAudience;
+
+        return $this;
+    }
+
+    public function getContentAudience(): array
     {
         return $this->ContentAudience;
     }
 
-    /**
-     * Get ResourceMode
-     *
-     * @return CodeList
-     */
-    public function getResourceMode()
+    public function removeContentAudience(CodeList154 $contentAudience): static
+    {
+        $this->ContentAudience = array_values(array_filter(
+            $this->ContentAudience,
+            static fn ($item): bool => $item !== $contentAudience,
+        ));
+
+        return $this;
+    }
+
+    public function setTerritory(Territory $territory): static
+    {
+        $this->Territory = $territory;
+
+        return $this;
+    }
+
+    public function getTerritory(): ?Territory
+    {
+        return $this->Territory;
+    }
+
+    public function setResourceMode(CodeList159 $resourceMode): static
+    {
+        $this->ResourceMode = $resourceMode;
+
+        return $this;
+    }
+
+    public function getResourceMode(): ?CodeList159
     {
         return $this->ResourceMode;
     }
 
-    /**
-     * Get ResourceVersion
-     *
-     * @return ResourceVersion
-     */
-    public function getResourceVersion()
+    public function addResourceFeature(ResourceFeature $resourceFeature): static
+    {
+        $this->ResourceFeature[] = $resourceFeature;
+
+        return $this;
+    }
+
+    public function getResourceFeature(): array
+    {
+        return $this->ResourceFeature;
+    }
+
+    public function removeResourceFeature(ResourceFeature $resourceFeature): static
+    {
+        $this->ResourceFeature = array_values(array_filter(
+            $this->ResourceFeature,
+            static fn ($item): bool => $item !== $resourceFeature,
+        ));
+
+        return $this;
+    }
+
+    public function addResourceVersion(ResourceVersion $resourceVersion): static
+    {
+        $this->ResourceVersion[] = $resourceVersion;
+
+        return $this;
+    }
+
+    public function getResourceVersion(): array
     {
         return $this->ResourceVersion;
     }
-    
-    /**
-     * Check, if the Resource is a book front cover
-     *
-     * @return boolean
-     */
-    public function isFrontCover()
-    {
-   		return $this->ResourceContentType->getCode() == self::TYPE_FRONTCOVER;
-    }
-    
-    /**
-     * Check, if the Resource is a book front cover
-     *
-     * @return boolean
-     */
-    public function isBackCover()
-    {
-   		return $this->ResourceContentType->getCode() == self::TYPE_BACKCOVER;
-    }
-    
-    /**
-     * Check, if the Resource is an image
-     *
-     * @return boolean
-     */
-    public function isImage()
-    {
-    	return $this->ResourceMode->getCode() === self::MODE_IMAGE;
-    }
-    
-    /**
-     * Get the link to a file or resource
-     *
-     * @return string
-     */
-    public function getLink()
-    {
-    	if ($this->ResourceVersion && $this->ResourceVersion->hasLink()) {
-    		return $this->ResourceVersion->getResourceLink();
-    	}
-    }
 
+    public function removeResourceVersion(ResourceVersion $resourceVersion): static
+    {
+        $this->ResourceVersion = array_values(array_filter(
+            $this->ResourceVersion,
+            static fn ($item): bool => $item !== $resourceVersion,
+        ));
+
+        return $this;
+    }
 }

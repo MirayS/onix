@@ -1,66 +1,66 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList9;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList9;
 
 class ProductClassification
 {
+    private ?CodeList9 $ProductClassificationType = null;
 
-    /**
-     * ProductClassificationType
-     *
-     * @var CodeList
-     */
-    protected $ProductClassificationType;
+    private ?string $ProductClassificationTypeName = null;
 
-    /**
-     * ProductClassificationCode
-     *
-     * @var string
-     */
-    protected $ProductClassificationCode;
+    private ?string $ProductClassificationCode = null;
 
-    /**
-     * Set ProductClassificationType
-     *
-     * @param string $ProductClassificationType
-     * @return void
-     */
-    public function setProductClassificationType(CodeList9 $ProductClassificationType)
+    private ?string $Percent = null;
+
+    public function setProductClassificationType(CodeList9 $productClassificationType): static
     {
-        $this->ProductClassificationType = $ProductClassificationType;
+        $this->ProductClassificationType = $productClassificationType;
+
+        return $this;
     }
 
-    /**
-     * Set ProductClassificationCode
-     *
-     * @param string $ProductClassificationCode
-     * @return void
-     */
-    public function setProductClassificationCode(string $ProductClassificationCode)
-    {
-        $this->ProductClassificationCode = $ProductClassificationCode;
-    }
-
-    /**
-     * Get ProductClassificationType
-     *
-     * @return CodeList
-     */
-    public function getProductClassificationType()
+    public function getProductClassificationType(): ?CodeList9
     {
         return $this->ProductClassificationType;
     }
 
-    /**
-     * Get ProductClassificationCode
-     *
-     * @return string
-     */
-    public function getProductClassificationCode()
+    public function setProductClassificationTypeName(string $productClassificationTypeName): static
+    {
+        $this->ProductClassificationTypeName = $productClassificationTypeName;
+
+        return $this;
+    }
+
+    public function getProductClassificationTypeName(): ?string
+    {
+        return $this->ProductClassificationTypeName;
+    }
+
+    public function setProductClassificationCode(string $productClassificationCode): static
+    {
+        $this->ProductClassificationCode = $productClassificationCode;
+
+        return $this;
+    }
+
+    public function getProductClassificationCode(): ?string
     {
         return $this->ProductClassificationCode;
     }
 
+    public function setPercent(string $percent): static
+    {
+        $this->Percent = $percent;
+
+        return $this;
+    }
+
+    public function getPercent(): ?string
+    {
+        return $this->Percent;
+    }
 }

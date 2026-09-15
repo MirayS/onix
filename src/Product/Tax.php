@@ -1,141 +1,129 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList62;
-use Ribal\Onix\CodeList\CodeList171;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList171;
+use MirayS\Onix\CodeList\CodeList62;
 
 class Tax
 {
+    private array $ProductIdentifier = [];
 
-    /**
-     * TaxType
-     *
-     * @var CodeList
-     */
-    protected $TaxType;
+    private array $PricePartDescription = [];
 
-    /**
-     * TaxRateCode
-     *
-     * @var CodeList
-     */
-    protected $TaxRateCode;
+    private ?CodeList171 $TaxType = null;
 
-    /**
-     * TaxRatePercent
-     *
-     * @var float
-     */
-    protected $TaxRatePercent;
+    private ?CodeList62 $TaxRateCode = null;
 
-    /**
-     * TaxableAmount
-     *
-     * @var float
-     */
-    protected $TaxableAmount;
+    private ?string $TaxRatePercent = null;
 
-    /**
-     * TaxAmount
-     *
-     * @var float
-     */
-    protected $TaxAmount;
+    private ?string $TaxableAmount = null;
 
-    /**
-     * Set TaxType
-     *
-     * @param CodeList171 $TaxType
-     * @return void
-     */
-    public function setTaxType(CodeList171 $TaxType)
+    private ?string $TaxAmount = null;
+
+    public function addProductIdentifier(ProductIdentifier $productIdentifier): static
     {
-        $this->TaxType = $TaxType;
+        $this->ProductIdentifier[] = $productIdentifier;
+
+        return $this;
     }
 
-    /**
-     * Set TaxRateCode
-     *
-     * @param CodeList62 $TaxRateCode
-     * @return void
-     */
-    public function setTaxRateCode(CodeList62 $TaxRateCode)
+    public function getProductIdentifier(): array
     {
-        $this->TaxRateCode = $TaxRateCode;
+        return $this->ProductIdentifier;
     }
 
-    /**
-     * Set TaxRatePercent
-     *
-     * @param float $TaxRatePercent
-     * @return void
-     */
-    public function setTaxRatePercent(string $TaxRatePercent)
+    public function removeProductIdentifier(ProductIdentifier $productIdentifier): static
     {
-        $this->TaxRatePercent = (float) $TaxRatePercent;
+        $this->ProductIdentifier = array_values(array_filter(
+            $this->ProductIdentifier,
+            static fn ($item): bool => $item !== $productIdentifier,
+        ));
+
+        return $this;
     }
 
-    /**
-     * Set TaxableAmount
-     *
-     * @param float $TaxableAmount
-     * @return void
-     */
-    public function setTaxableAmount(string $TaxableAmount)
+    public function addPricePartDescription(string $pricePartDescription): static
     {
-        $this->TaxableAmount = (float) $TaxableAmount;
+        $this->PricePartDescription[] = $pricePartDescription;
+
+        return $this;
     }
 
-    /**
-     * Set TaxAmount
-     *
-     * @param float $TaxAmount
-     * @return void
-     */
-    public function setTaxAmount(string $TaxAmount)
+    public function getPricePartDescription(): array
     {
-        $this->TaxAmount = (float) $TaxAmount;
+        return $this->PricePartDescription;
     }
 
-    /**
-     * Get TaxType
-     *
-     * @return CodeList
-     */
-    public function getTaxType()
+    public function removePricePartDescription(string $pricePartDescription): static
+    {
+        $this->PricePartDescription = array_values(array_filter(
+            $this->PricePartDescription,
+            static fn ($item): bool => $item !== $pricePartDescription,
+        ));
+
+        return $this;
+    }
+
+    public function setTaxType(CodeList171 $taxType): static
+    {
+        $this->TaxType = $taxType;
+
+        return $this;
+    }
+
+    public function getTaxType(): ?CodeList171
     {
         return $this->TaxType;
     }
 
-    /**
-     * Get TaxRateCode
-     *
-     * @return CodeList
-     */
-    public function getTaxRateCode()
+    public function setTaxRateCode(CodeList62 $taxRateCode): static
+    {
+        $this->TaxRateCode = $taxRateCode;
+
+        return $this;
+    }
+
+    public function getTaxRateCode(): ?CodeList62
     {
         return $this->TaxRateCode;
     }
 
-    /**
-     * Get TaxableAmount
-     *
-     * @return float
-     */
-    public function getTaxableAmount()
+    public function setTaxRatePercent(string $taxRatePercent): static
+    {
+        $this->TaxRatePercent = $taxRatePercent;
+
+        return $this;
+    }
+
+    public function getTaxRatePercent(): ?string
+    {
+        return $this->TaxRatePercent;
+    }
+
+    public function setTaxableAmount(string $taxableAmount): static
+    {
+        $this->TaxableAmount = $taxableAmount;
+
+        return $this;
+    }
+
+    public function getTaxableAmount(): ?string
     {
         return $this->TaxableAmount;
     }
 
-    /**
-     * Get TaxAmount
-     *
-     * @return float
-     */
-    public function getTaxAmount()
+    public function setTaxAmount(string $taxAmount): static
+    {
+        $this->TaxAmount = $taxAmount;
+
+        return $this;
+    }
+
+    public function getTaxAmount(): ?string
     {
         return $this->TaxAmount;
     }
-
 }

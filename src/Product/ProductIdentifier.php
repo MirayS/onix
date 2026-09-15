@@ -1,88 +1,52 @@
 <?php
 
-namespace Ribal\Onix\Product;
+declare(strict_types=1);
 
-use Ribal\Onix\CodeList\CodeList5;
+namespace MirayS\Onix\Product;
+
+use MirayS\Onix\CodeList\CodeList5;
 
 class ProductIdentifier
 {
-    protected const ISBN10_TYPE = "02";
-    protected const ISBN13_TYPE = "15";
+    private ?CodeList5 $ProductIDType = null;
 
-    /**
-     * ProductIDType
-     *
-     * @var CodeListList5
-     */
-    protected $ProductIDType;
+    private ?string $IDTypeName = null;
 
-    /**
-     * IDValue
-     *
-     * @var string
-     */
-    protected $IDValue;
+    private ?string $IDValue = null;
 
-    /**
-     * Set ProductIDType
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setProductIDType(CodeList5 $ProductIDType)
+    public function setProductIDType(CodeList5 $productIDType): static
     {
-        $this->ProductIDType = $ProductIDType;
+        $this->ProductIDType = $productIDType;
+
+        return $this;
     }
 
-    /**
-     * Get ProductIDType
-     *
-     * @return object
-     */
-    public function getProductIDType()
+    public function getProductIDType(): ?CodeList5
     {
         return $this->ProductIDType;
     }
 
-    /**
-     * Set IDValue
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setIDValue(string $value)
+    public function setIDTypeName(string $iDTypeName): static
     {
-        $this->IDValue = $value;
+        $this->IDTypeName = $iDTypeName;
+
+        return $this;
     }
 
-    /**
-     * Get IDValue
-     *
-     * @return string
-     */
-    public function getIDValue()
+    public function getIDTypeName(): ?string
+    {
+        return $this->IDTypeName;
+    }
+
+    public function setIDValue(string $iDValue): static
+    {
+        $this->IDValue = $iDValue;
+
+        return $this;
+    }
+
+    public function getIDValue(): ?string
     {
         return $this->IDValue;
     }
-
-    /**
-     * Determine if idenfitier is ISBN10
-     *
-     * @return boolean
-     */
-    public function isISBN10()
-    {
-        return $this->ProductIDType->getCode() == self::ISBN10_TYPE;
-    }
-
-    /**
-     * Determine if idenfitier is ISBN13
-     *
-     * @return boolean
-     */
-    public function isISBN13()
-    {
-        return $this->ProductIDType->getCode() == self::ISBN13_TYPE;
-    }
-
 }
