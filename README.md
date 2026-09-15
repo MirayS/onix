@@ -170,9 +170,11 @@ php tools/generate-model.php path/to/schemas
 php tools/generate-codelists.php path/to/schemas/ONIX_BookProduct_CodeLists.xsd
 ```
 
-The EDItEUR schemas are copyright material; their licence allows derived copies for strictly
-internal use within your own organization. Notify EDItEUR before distributing anything
-generated from them outside your organization.
+The generated files are derived from the ONIX for Books schemas and code lists published by
+[EDItEUR](https://www.editeur.org/), copyright (c) 2000-2026 EDItEUR, and are used under the
+[Licence to use EDItEUR Standards](https://doi.org/10.4400/nwgj). See [NOTICE](NOTICE) for the
+attribution that licence requires. When EDItEUR publishes a new code list issue or schema
+revision, regenerate rather than hand-edit.
 
 ## Tests
 

@@ -23,11 +23,22 @@ Third-party notices
 
    The object model in src/Product, src/Message, src/Schema and src/Tag, and the
    code lists in src/CodeList, are generated from the ONIX for Books schemas and
-   code lists published by EDItEUR (https://www.editeur.org/), copyright (c)
-   2000-2026 EDItEUR. Those schemas are made available free of charge under terms
-   (DOI: 10.4400/nwgj) that permit copies derived from them for use that is
-   strictly internal to your own organization, and ask that EDItEUR be notified
-   of any other intended use. EDItEUR is not the author of this software and does
-   not endorse it.
+   code lists published by EDItEUR, copyright (c) 2000-2026 EDItEUR.
 
-   ONIX is a trademark of EDItEUR.
+       EDItEUR: https://www.editeur.org/
+       ONIX for Books: https://www.editeur.org/83/Overview/
+       Licence to use EDItEUR Standards: https://doi.org/10.4400/nwgj
+
+   Element names, element structure, code values and code descriptions in the
+   generated files are derived from ONIX for Books release 3.0 and 3.1 reference
+   schemas and from Code Lists Issue 74, and are attributed to EDItEUR under
+   paragraph 4.4 of that licence. Code list translations into Spanish, German,
+   French, Italian, Norwegian and Turkish are inherited from the upstream project
+   and correspond to Code Lists Issue 61.
+
+   In line with paragraph 5.3 of that licence, this project tracks EDItEUR
+   releases: when a new code list issue or schema revision is published, the
+   generated files are regenerated from it and outdated versions are superseded.
+
+   EDItEUR is not the author of this software, does not endorse it, and accepts no
+   responsibility for it. ONIX is a trademark of EDItEUR.
