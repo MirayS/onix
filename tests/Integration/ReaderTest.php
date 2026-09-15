@@ -188,6 +188,69 @@ final class ReaderTest extends TestCase
         self::assertSame(['a' => 1, 'b' => 0], $issues);
     }
 
+    public function testAppliesLegacyDateFormatElementToSiblingDate(): void
+    {
+        $reader = new OnixReader();
+        $xml = $this->product('<PublishingDetail><PublishingDate>'
+            . '<PublishingDateRole>01</PublishingDateRole>'
+            . '<DateFormat>05</DateFormat>'
+            . '<Date>2008</Date>'
+            . '</PublishingDate></PublishingDetail>');
+
+        $products = iterator_to_array($reader->readString($xml), false);
+        $date = $products[0]->getPublishingDetail()?->getPublishingDate()[0]->getDate();
+
+        self::assertSame('05', $date?->getFormatCode()->getCode());
+        self::assertSame('year', $date?->getPrecision());
+        self::assertSame([], $reader->getIssues());
+    }
+
+    public function testDateFormatAttributeWinsOverLegacyElement(): void
+    {
+        $reader = new OnixReader();
+        $xml = $this->product('<PublishingDetail><PublishingDate>'
+            . '<PublishingDateRole>01</PublishingDateRole>'
+            . '<DateFormat>05</DateFormat>'
+            . '<Date dateformat="00">20080515</Date>'
+            . '</PublishingDate></PublishingDetail>');
+
+        $products = iterator_to_array($reader->readString($xml), false);
+        $date = $products[0]->getPublishingDetail()?->getPublishingDate()[0]->getDate();
+
+        self::assertSame('00', $date?->getFormatCode()->getCode());
+        self::assertSame('2008-05-15', $date?->format());
+    }
+
+    public function testCapturesRawProductXmlWhenEnabled(): void
+    {
+        $reader = new OnixReader(captureRawXml: true);
+        $xml = '<ONIXMessage release="3.1">'
+            . '<Product><RecordReference>a</RecordReference></Product>'
+            . '<Product><RecordReference>b</RecordReference></Product>'
+            . '</ONIXMessage>';
+
+        $raw = [];
+
+        foreach ($reader->readString($xml) as $product) {
+            $raw[$product->getRecordReference()] = $reader->getProductRawXml();
+        }
+
+        self::assertSame([
+            'a' => '<Product><RecordReference>a</RecordReference></Product>',
+            'b' => '<Product><RecordReference>b</RecordReference></Product>',
+        ], $raw);
+    }
+
+    public function testDoesNotCaptureRawProductXmlByDefault(): void
+    {
+        $reader = new OnixReader();
+
+        foreach ($reader->readString($this->product('')) as $product) {
+            self::assertNotNull($product);
+            self::assertNull($reader->getProductRawXml());
+        }
+    }
+
     public function testReadsFlagElements(): void
     {
         $reader = new OnixReader();

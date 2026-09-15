@@ -39,6 +39,7 @@ final class Hydrator
         $object = new $class();
         $metadata = ClassMetadataFactory::for($class);
         $seen = [];
+        $legacyDateFormat = isset($metadata['dateformat']) ? null : $this->legacyDateFormat($node);
 
         foreach ($node->childNodes as $child) {
             if (!$child instanceof DOMElement) {
@@ -51,11 +52,13 @@ final class Hydrator
             $property = $metadata[$key] ?? null;
 
             if ($property === null) {
-                $this->issues->add(
-                    Issue::UNKNOWN_ELEMENT,
-                    $childPath,
-                    sprintf('Element is not mapped in %s', $class),
-                );
+                if ($key !== 'dateformat') {
+                    $this->issues->add(
+                        Issue::UNKNOWN_ELEMENT,
+                        $childPath,
+                        sprintf('Element is not mapped in %s', $class),
+                    );
+                }
 
                 continue;
             }
@@ -72,7 +75,7 @@ final class Hydrator
                 continue;
             }
 
-            $value = $this->convert($child, $property, $childPath);
+            $value = $this->convert($child, $property, $childPath, $legacyDateFormat);
 
             if ($value === null) {
                 continue;
@@ -83,6 +86,28 @@ final class Hydrator
         }
 
         return $object;
+    }
+
+    /**
+     * ONIX 3.0 qualifies a sibling <Date> with a <DateFormat> element; 3.1 replaced it
+     * with the dateformat attribute. Senders still on the 3.0 spelling would otherwise
+     * lose the format, since the generated composites carry no DateFormat property.
+     */
+    private function legacyDateFormat(DOMElement $node): ?string
+    {
+        foreach ($node->childNodes as $child) {
+            if (!$child instanceof DOMElement) {
+                continue;
+            }
+
+            if (strtolower(TagMap::toReference($child->localName)) === 'dateformat') {
+                $value = trim($child->textContent);
+
+                return $value !== '' ? $value : null;
+            }
+        }
+
+        return null;
     }
 
     private function checkRelease(string $element, string $path): void
@@ -106,7 +131,12 @@ final class Hydrator
         );
     }
 
-    private function convert(DOMElement $node, PropertyMetadata $property, string $path): mixed
+    private function convert(
+        DOMElement $node,
+        PropertyMetadata $property,
+        string $path,
+        ?string $legacyDateFormat = null,
+    ): mixed
     {
         $class = $property->className;
 
@@ -119,7 +149,7 @@ final class Hydrator
         }
 
         if ($class === Date::class) {
-            return $this->parseDate($node, $path);
+            return $this->parseDate($node, $path, $legacyDateFormat);
         }
 
         if ($class === Text::class) {
@@ -173,7 +203,7 @@ final class Hydrator
         return $codeList;
     }
 
-    private function parseDate(DOMElement $node, string $path): ?Date
+    private function parseDate(DOMElement $node, string $path, ?string $legacyDateFormat = null): ?Date
     {
         $value = trim($node->textContent);
 
@@ -182,6 +212,10 @@ final class Hydrator
         }
 
         $format = $node->getAttribute('dateformat');
+
+        if ($format === '') {
+            $format = (string) $legacyDateFormat;
+        }
 
         try {
             return Date::parse($value, $format !== '' ? $format : null);

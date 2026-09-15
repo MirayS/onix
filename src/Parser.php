@@ -17,6 +17,7 @@ class Parser
         private readonly string $language = 'en',
         private readonly bool $strict = false,
         private readonly bool $validateRelease = false,
+        private readonly bool $captureRawXml = false,
     ) {
         $this->reader = $this->createReader();
     }
@@ -88,6 +89,11 @@ class Parser
 
     private function createReader(): OnixReader
     {
-        return new OnixReader($this->language, $this->strict, validateRelease: $this->validateRelease);
+        return new OnixReader(
+            $this->language,
+            $this->strict,
+            validateRelease: $this->validateRelease,
+            captureRawXml: $this->captureRawXml,
+        );
     }
 }

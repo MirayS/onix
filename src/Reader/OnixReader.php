@@ -32,6 +32,8 @@ final class OnixReader
 
     private array $productIssues = [];
 
+    private ?string $productRawXml = null;
+
     private int $productCount = 0;
 
     public function __construct(
@@ -39,6 +41,7 @@ final class OnixReader
         private readonly bool $strict = false,
         int $issueLimit = 1000,
         bool $validateRelease = false,
+        private readonly bool $captureRawXml = false,
     ) {
         $this->issues = new IssueCollector($strict, $issueLimit);
         $this->hydrator = new Hydrator($language, $this->issues);
@@ -203,6 +206,10 @@ final class OnixReader
 
     private function hydrateProduct(DOMElement $node): Product
     {
+        $this->productRawXml = $this->captureRawXml
+            ? $node->ownerDocument?->saveXML($node) ?: null
+            : null;
+
         $offset = $this->issues->count();
         $this->issues->setRecordReference($this->recordReference($node));
 
@@ -273,5 +280,14 @@ final class OnixReader
     public function getProductIssues(): array
     {
         return $this->productIssues;
+    }
+
+    /**
+     * Serialized XML of the product yielded last, when the reader was built with
+     * $captureRawXml. Valid until the next product is pulled from the generator.
+     */
+    public function getProductRawXml(): ?string
+    {
+        return $this->productRawXml;
     }
 }
